@@ -24,9 +24,11 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 				y:9,
 				sx:8,
 		});
+		sound.playSound("song1");
 	};
 	
 	this.startPresents = function(){
+		sound.stopSound("song1");
 		gameView.clearAll();
 		gameModel.getButtons().reset();
 		gameModel.getButtons().addButton({
@@ -37,7 +39,14 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 			sx:3,
 			selected:true,
 		});
-		
+		gameModel.getPresents().addPresent({
+			name: 'attribute1',
+			id: c.ATTRIBUTE.RED,
+			x:20,
+			y:20,
+			sx:10,
+			sy:10,
+		});
 	};
 	
 //	function start(){

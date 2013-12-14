@@ -6,8 +6,4 @@ function TitleUi(gameModel,canvas,sprites,buttonUi){
 //		var image = sprites.getSprite('title');
 //		canvas.getStage().drawImage(image.image, 0, 0,blocksize*20,blocksize*12);
 	};
-	this.drawButtons=function(){
-		stage=canvas.getStage();
-		buttonUi.drawAll();
-	};
 };

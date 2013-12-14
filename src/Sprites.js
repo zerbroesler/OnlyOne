@@ -7,9 +7,31 @@ function Sprites() {
 		tree1 : {
 			path : 'tree1'
 		},
+		// Presents
 		present1 : {
 			path : 'present1'
 		},
+		present2 : {
+			path : 'present2'
+		},
+		// Persons
+		person1 : {
+			path : 'person1'
+		},
+		person2 : {
+			path : 'person2'
+		},
+		// Attributes
+		attribute0 : {
+			path : 'blase'
+		},
+		attribute1 : {
+			path : 'attribute1'
+		},
+		attribute2 : {
+			path : 'attribute2'
+		},
+		
 	};
 
 	this.loadSprites = function(callback) {

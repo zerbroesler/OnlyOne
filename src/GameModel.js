@@ -6,6 +6,7 @@ function GameModel() {
 	var score=0;
 	var screen=c.SCREEN.TITLE;
 	var buttons=new Buttons(this);
+	var presents=new Presents(this);
 
 	var events={
 			startTitle : new Event(),
@@ -23,6 +24,9 @@ function GameModel() {
 	};
 	this.getButtons = function(){
 		return buttons;
+	};
+	this.getPresents = function(){
+		return presents;
 	};
 	this.registerEvent = function(name,listener){
 		events[name].attach(listener);

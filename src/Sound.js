@@ -4,6 +4,9 @@ function Sound() {
         pling:{
             path: 'pling'
         },
+        song1:{
+            path: 'kinderlein2'
+        },
     };        
     
 
@@ -26,7 +29,7 @@ function Sound() {
 			};
 			if(toLoad==0){
 				clearInterval(loading);
-				callback();
+//				callback();
 			}
 		},200);    	
     };

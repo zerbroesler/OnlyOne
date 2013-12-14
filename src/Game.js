@@ -15,7 +15,9 @@ function Game() {
     
     this.start = function() {
     	sound=new Sound();
-    	sound.loadSounds(soundLoaded);
+//    	sound.loadSounds(soundLoaded);
+    	sound.loadSounds(null);
+    	soundLoaded();
     };
     function soundLoaded(){
     	sprites=new Sprites();

@@ -12,7 +12,7 @@ function GameView(gameModel,sprites) {
 		var blocksize=Math.floor(canvasArea.getSize().x/20);
 		buttonUi=new ButtonsUi(gameModel,canvasArea.getStage(),blocksize);
 		titleUi= new TitleUi(gameModel,canvasArea,sprites,buttonUi);
-		presentsUi = new PresentsUi(gameModel,canvasArea,sprites,buttonUi);
+		presentsUi = new PresentsUi(gameModel,canvasArea,sprites,buttonUi,blocksize/5);// Blocksize normalized to 100%=Height
 	};
 	
 	this.getCanvas = function(){
@@ -25,6 +25,9 @@ function GameView(gameModel,sprites) {
 
 	this.registerMouse = function(){
 		canvasArea.getCanvas().addEventListener('touchstart',this.checkButtons);
+		canvasArea.getCanvas().addEventListener('click',this.checkButtons);
+		canvasArea.getFrontCanvas().addEventListener('touchstart',this.checkButtons);
+		canvasArea.getFrontCanvas().addEventListener('click',this.checkButtons);
 	};
 	
 	this.checkButtons = function(event){
@@ -39,10 +42,11 @@ function GameView(gameModel,sprites) {
 		var screen=gameModel.getScreen();
 		if(screen==c.SCREEN.TITLE){
 			if(newScreen){
+				canvasArea.clearRectFront();
 				titleUi.drawTitle();
 			}
 			newScreen=false;
-			titleUi.drawButtons();
+			buttonUi.drawAll();
 			return;
 		}
 		if(screen==c.SCREEN.GAME){
@@ -50,7 +54,7 @@ function GameView(gameModel,sprites) {
 				presentsUi.draw();
 			}
 			newScreen=false;
-			titleUi.drawButtons();
+			buttonUi.drawAll();
 			return;
 		}
 		if(newScreen){

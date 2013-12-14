@@ -17,6 +17,12 @@ var c={
     	MENU : 10,
     },
     
+    ATTRIBUTE:{
+    	RED:1,
+    	GREEN:2,
+    	BLUE:3,
+    },
+    
     SCREEN: {
         TITLE:1,
         GAME:2,
@@ -24,7 +30,7 @@ var c={
     },
     
     TITLE_BACKGROUND_COLOR : "#F7EE59",
-    BACKGROUND_COLOR : "#000000",
+    BACKGROUND_COLOR : "#888888",
     TEXT_COLOR: "#2020F0",
     
     BUTTON_BACKGROUND_COLOR : "#FFFF00",

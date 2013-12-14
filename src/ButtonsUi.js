@@ -20,7 +20,7 @@ function ButtonsUi(gameModel,stage,blocksize) {
         spec.selected = iSpec.selected || false;
         spec.group = iSpec.group;
         buttons.push(spec);
-        gameModel.registerButtonSelection(selectButton);
+        gameModel.registerEvent('buttonSelection',selectButton);
     };
 
     function selectButton(number){
@@ -43,7 +43,6 @@ function ButtonsUi(gameModel,stage,blocksize) {
         var sx=sizeX*blocksize-1;
         var sy=sizeY*blocksize-1;
         var textColor;
-        var blur=0;
         stage.fillStyle = c.TITLE_BACKGROUND_COLOR;
         stage.shadowBlur=0; //TODO:Blur
 		stage.shadowColor=c.BUTTON.SELECTED_SHADOW_COLOR;
@@ -59,7 +58,6 @@ function ButtonsUi(gameModel,stage,blocksize) {
             stage.fillStyle = c.BUTTON.BACKGROUND_COLOR;
             textColor= c.BUTTON.TEXT_COLOR;
         }
-//        stage.shadowBlur=blur;
         stage.fillRect(x,y,sx,sy);
         stage.fillStyle = textColor;
         stage.font = "20px Verdana";
@@ -67,6 +65,5 @@ function ButtonsUi(gameModel,stage,blocksize) {
         stage.textBaseline = 'alphabetic';
         stage.fillText(sText, x+sx/2,y+sy*0.5+8);
         stage.strokeRect(x,y,sx,sy);
-//        stage.shadowBlur=0;
     };
 };

@@ -10,38 +10,25 @@ function Game() {
     var gameController=undefined;
     var sound=undefined;
     var sprites=undefined;
-    this.levelNumber = undefined;
     var game=this;
     
-    var gameState=undefined;
-    
-		
-    this.changeGameState=function(iGameState){
-    	gameState=iGameState;    	
-    };
     this.start = function() {
     	sound=new Sound();
     	sound.loadSounds(soundLoaded);
     };
     function soundLoaded(){
     	sprites=new Sprites();
-    	sprites.loadSprites(loaded);
+    	sprites.loadSprites(spritesLoaded);
     };
-    function loaded(){
+    function spritesLoaded(){
     	game.initAll();
-    	gameState=gameModel.getGameState();
         // Go to the UI loop. The model has registered an own callback at GameModel.startGame();
         loop();
     };
-    this.levelDone = function(){
-    	sound.playSound('tune1');
-    	gameModel.stopGame();
-    	setTimeout(toNextLevel,5000);
-    };
+
     this.initAll = function(){
         // Init Model
         gameModel = new GameModel();
-        gameModel.setGameState(gameState);
     	// Init View
         gameView = new GameView(gameModel,sprites);
         // Init Controller
@@ -49,35 +36,16 @@ function Game() {
         
         gameView.createCanvas();
 
-        // Initialize the game
-//        gameModel.loadLevel(this.levelNumber);
-
         gameController.initialize();
         gameController.start();
         
         if(gameModel.getScreen()==c.SCREEN.TITLE){
         	return;
         }
-        gameModel.registerLevelDone(this.levelDone);
-        gameModel.startGame();
+//        gameModel.registerLevelDone(this.levelDone);
+//        gameModel.startGame();
     	
     };
-    this.looseLive = function(){
-    	gameState.lives--;
-    	if(gameState.lives<0){
-    		// Game Over
-    		gameModel.setGameOver(200);
-    		gameState.screen=c.SCREEN.TITLE;
-    	}
-    };
-    function toNextLevel(){
-    	gameState.score=gameModel.getScore();
-    	if(gameState.level=='Tutorial'){
-    		gameState.level=0;
-    	}
-    	gameState.level++;
-    	game.initAll();
-    }
     loop = function() {
         requestAnimFrame(loop);
         gameView.redrawAll();

@@ -21,20 +21,13 @@ function CanvasArea() {
 		canvas.width = sizeX;
 		canvas.height = sizeY;
 		canvas.style.border = "1px solid black";
-		canvas.addEventListener("click", keyboardOnly, true);
 		return canvas.getContext('2d');
 	};
-	function keyboardOnly(){
-		alert("Sorry only keyboard control...");
-	}
 
 	this.clearScreen = function() {
 
 		stage.fillStyle = c.BACKGROUND_COLOR;
 		stage.fillRect(0, 0, sizeX, sizeY);
-	};
-	this.addKeyDownEvent =function(callback){
-		window.addEventListener("keydown",callback,true);
 	};
 
 	stage = this.setCanvas();

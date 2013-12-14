@@ -58,14 +58,27 @@ function GameModel() {
 			if(button.id=c.BUTTONS.MENU){
 				screen=c.SCREEN.TITLE;
 				events.startTitle.notify();
+				// No further processing here
+				return;
 			}
-			
 			break;
-
 		default:
 			break;
 		}
-	} 
+	}; 
+	this.presentClicked = function(present){
+		switch(screen) {
+		case c.SCREEN.TITLE:
+			a=b; //TODO: Error
+		case c.SCREEN.GAME:
+			a=1;
+			// No further processing here
+			return;
+			break;
+		default:
+			break;
+		}
+	}; 
 	
 	function addScore(ammount){
 		score+=ammount;

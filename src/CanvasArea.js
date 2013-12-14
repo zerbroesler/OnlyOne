@@ -55,10 +55,10 @@ function CanvasArea(sprites) {
 	};
 	this.drawImageFront = function(name, x, y,xs,ys){
 		var image = sprites.getSprite(name);
-		x=x*blocksize;
-		y=y*blocksize;
-		xs=xs*blocksize;
-		ys=ys*blocksize;
+//		x=x*blocksize;
+//		y=y*blocksize;
+//		xs=xs*blocksize;
+//		ys=ys*blocksize;
 	    frontStage.drawImage(image.image, x, y,xs,ys);
 	};
 	this.clearRectFront = function(x, y,xs,ys){

@@ -35,6 +35,26 @@ function Sprites() {
 	};
 
 	this.loadSprites = function(callback) {
+		// generate attributes
+		for (var i = 0; i <= c.ATTRIBUTE.COLOR.COUNT ; i++) {
+			var path='acol'+i;
+			addSprite(path);
+		};
+		for (var i = 1; i <= c.ATTRIBUTE.BAND.COUNT ; i++) {
+			var path='aband'+i;
+			addSprite(path);
+		};
+		for (var i = 1; i <= c.ATTRIBUTE.PATTERN.COUNT ; i++) {
+			var path='apatt'+i;
+			addSprite(path);
+		};
+		function addSprite(path){
+			sprites[path] ={
+					path:path,
+			};
+		}
+		
+		
 		var toLoad=0;
 		// load all game images here
 		for ( var spriteName in sprites) {

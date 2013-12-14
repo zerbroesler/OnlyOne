@@ -15,12 +15,23 @@ var c={
     	START : 1,
     	
     	MENU : 10,
+    	
+    	PRESENT1:100,
     },
     
     ATTRIBUTE:{
-    	RED:1,
-    	GREEN:2,
-    	BLUE:3,
+    	COLOR:{
+    		COUNT:5,
+    		RED:1,
+    		GREEN:2,
+    		BLUE:3,
+    	},
+    	BAND:{
+    		COUNT:4,
+    	},
+    	PATTERN:{
+    		COUNT:4,
+    	},
     },
     
     SCREEN: {

@@ -6,13 +6,15 @@ function GameView(gameModel,sprites) {
 	var newScreen=false;
 	var titleUi=undefined;
 	var buttonUi=undefined;
+	var selectedPresent=undefined;
+	var selectionPos={};
 
 	this.createCanvas = function() {
 		canvasArea = new CanvasArea(sprites);
-		var blocksize=Math.floor(canvasArea.getSize().x/20);
-		buttonUi=new ButtonsUi(gameModel,canvasArea.getStage(),blocksize);
+		var blocksize=Math.floor(canvasArea.getSize().y/100);
+		buttonUi=new ButtonsUi(gameModel,canvasArea.getStage(),blocksize*5);
 		titleUi= new TitleUi(gameModel,canvasArea,sprites,buttonUi);
-		presentsUi = new PresentsUi(gameModel,canvasArea,sprites,buttonUi,blocksize/5);// Blocksize normalized to 100%=Height
+		presentsUi = new PresentsUi(gameModel,canvasArea,sprites,buttonUi,blocksize);// Blocksize normalized to 100%=Height
 	};
 	
 	this.getCanvas = function(){
@@ -24,18 +26,55 @@ function GameView(gameModel,sprites) {
 	};
 
 	this.registerMouse = function(){
-		canvasArea.getCanvas().addEventListener('touchstart',this.checkButtons);
-		canvasArea.getCanvas().addEventListener('click',this.checkButtons);
-		canvasArea.getFrontCanvas().addEventListener('touchstart',this.checkButtons);
-		canvasArea.getFrontCanvas().addEventListener('click',this.checkButtons);
+		var canvas=canvasArea.getFrontCanvas();
+		canvas.addEventListener('touchstart',this.checkClick);
+		canvas.addEventListener('mousedown',this.checkClick);
+		canvas.addEventListener('touchmove',moveAround);
+		canvas.addEventListener('mousemove',moveAround);
+		canvas.addEventListener('touchend',moveEnd);
+		canvas.addEventListener('mouseup',moveEnd);
 	};
 	
-	this.checkButtons = function(event){
+	this.checkClick = function(event){
 		var mouse=new Mouse(event);
-		button = buttonUi.checkClicked(mouse);
+		var button = buttonUi.checkClicked(mouse);
 		if(button){
 			gameModel.buttonClicked(button);
+			return;
 		};
+		var present = presentsUi.checkClicked(mouse);
+		if(present){
+			gameModel.presentClicked(button);
+			selectedPresent=present;
+			var presentScreenPos = presentsUi.coordToScreen(present);
+			selectionPos={
+				x:mouse.x-presentScreenPos.x,
+				y:mouse.y-presentScreenPos.y,
+			};
+			return;
+		};
+	};
+	function moveAround(event){
+		var mouse=new Mouse(event);
+		var button = buttonUi.checkClicked(mouse);
+		if(button && selectedPresent){
+			//Hover graphics
+			button.selected=true;
+			selectedPresent.x=button.x*5;
+			selectedPresent.y=button.y*5;
+			return;
+		};
+		if(selectedPresent){
+			var x=mouse.x-selectionPos.x;
+			var y=mouse.y-selectionPos.y;
+			var pos=presentsUi.screenToCoord({x:x,y:y});
+			selectedPresent.x=pos.x;
+			selectedPresent.y=pos.y;
+		}
+		
+	};
+	function moveEnd(event){
+		selectedPresent=undefined;
 	};
 	
 	this.redrawAll = function() {
@@ -54,6 +93,7 @@ function GameView(gameModel,sprites) {
 				presentsUi.draw();
 			}
 			newScreen=false;
+			presentsUi.draw();
 			buttonUi.drawAll();
 			return;
 		}

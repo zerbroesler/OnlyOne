@@ -86,5 +86,11 @@ function ButtonsUi(gameModel,stage,blocksize) {
             // Hit
             return true;
         }
-    };        
+    };
+    this.screenToCoord=function(posIn){
+    	return {
+    		x:posIn.x/blocksize,
+    		y:posIn.y/blocksize,
+    	};
+    };
 };

@@ -25,10 +25,10 @@ function PresentsUi(gameModel,canvas,sprites,buttonUi,blocksize){
 
     this.drawPresent = function(present) {
         
-        var posX = present.x;
-        var posY = present.y;
-        var sizeX = present.sx;
-        var sizeY = present.sy;
+        var posX = present.x*blocksize;
+        var posY = present.y*blocksize;
+        var sizeX = present.sx*blocksize;
+        var sizeY = present.sy*blocksize;
         var name = present.name;
         
         canvas.drawImageFront(name,posX,posY,sizeX,sizeY);
@@ -37,30 +37,21 @@ function PresentsUi(gameModel,canvas,sprites,buttonUi,blocksize){
     };
 
     this.checkClicked = function(mouse) {
-    	var buttons = gameModel.getButtons().getButtons();
+    	var presents = gameModel.getPresents().getPresents();
     	// Checks which button was clicked. Also supports radio button groups
-        var button = this.getClicked(mouse);
-        if (!button) {
+        var present = this.getClicked(mouse);
+        if (!present) {
             return undefined;
         }
-        // Radio button logic
-        if (button.group) {
-            button.selected=true;
-            for (var i = 0; i < buttons.length; i++) {
-                if (buttons[i].group == button.group && button.id!=buttons[i].id) {
-                    buttons[i].selected=false;
-                };
-            };
-        };
-        return button;
+        return present;
     };
 
     this.getClicked = function(mouse) {
-    	var buttons = gameModel.getButtons().getButtons();
+    	var presents = gameModel.getPresents().getPresents();
     	// Check which button was clicked
-        for (var i = 0; i < buttons.length; i++) {
-            if (checkPresentClicked(buttons[i], mouse)) {
-                return buttons[i];
+        for (var i = 0; i < presents.length; i++) {
+            if (checkPresentClicked(presents[i], mouse)) {
+                return presents[i];
             };
         };
         return undefined;
@@ -78,9 +69,16 @@ function PresentsUi(gameModel,canvas,sprites,buttonUi,blocksize){
             return true;
         }
     };        
-	
-	
-	
-	
-	
+    this.screenToCoord=function(posIn){
+    	return {
+    		x:posIn.x/blocksize,
+    		y:posIn.y/blocksize,
+    	};
+    };
+    this.coordToScreen=function(present){
+    	return {
+    		x:present.x*blocksize,
+    		y:present.y*blocksize,
+    	};
+    };
 };

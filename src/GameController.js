@@ -2,11 +2,42 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 
 	this.initialize = function() {
 		// Add callbacks and register for model changes
-		gameModel.registerEvent('start',this.start);
+		gameModel.registerEvent('startTitle',this.startTitle);
+		gameModel.registerEvent('startPresents',this.startPresents);
+		gameView.registerMouse();
 	};
 	
-	this.start = function() {
+	this.startTitle = function() {
 		gameView.clearAll();
+		gameModel.getButtons().reset();
+		gameModel.getButtons().addButton({
+				text:'Start',
+				id: c.BUTTONS.START,
+				x:6,
+				y:7,
+				sx:8,
+				selected:true,
+		});
+		gameModel.getButtons().addButton({
+				text:'Tutorial',
+				x:6,
+				y:9,
+				sx:8,
+		});
+	};
+	
+	this.startPresents = function(){
+		gameView.clearAll();
+		gameModel.getButtons().reset();
+		gameModel.getButtons().addButton({
+			text:'Menu',
+			id: c.BUTTONS.MENU,
+			x:0,
+			y:0,
+			sx:3,
+			selected:true,
+		});
+		
 	};
 	
 //	function start(){

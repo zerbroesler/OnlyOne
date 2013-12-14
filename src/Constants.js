@@ -11,6 +11,11 @@ var c={
         SELECTED_BORDER_COLOR: "#AAAAFF",
         SELECTED_SHADOW_COLOR: "#EE3733",
     },
+    BUTTONS:{
+    	START : 1,
+    	
+    	MENU : 10,
+    },
     
     SCREEN: {
         TITLE:1,

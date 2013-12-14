@@ -5,9 +5,11 @@ function GameModel() {
 	var callback=undefined;
 	var score=0;
 	var screen=c.SCREEN.TITLE;
+	var buttons=new Buttons(this);
 
 	var events={
-			start : new Event(),
+			startTitle : new Event(),
+			startPresents : new Event(),
 			buttonSelection : new Event(),
 	};
 	this.setScreen = function(iScreen){
@@ -18,6 +20,9 @@ function GameModel() {
 	};
 	this.getScore = function(){
 		return score;
+	};
+	this.getButtons = function(){
+		return buttons;
 	};
 	this.registerEvent = function(name,listener){
 		events[name].attach(listener);
@@ -32,21 +37,31 @@ function GameModel() {
 		}
 		// register regular callback
 		callback = setInterval(function() {
-			if(ready>0){
-				ready--;
-				if(ready==20){
-					startEvent.notify();
-				}
-			}else{
-			//Update 
-				spawnAndMoveMonsters();
-				direction=$this.movePlayer(direction);
-				grabItem();
-				$this.swingDoors();
-				monsterCollision();
-			}
+			a=1;// TODO: Game loop
 		}, 16);
 	};
+	
+	this.buttonClicked = function(button){
+		events.buttonSelection.notify(button.id);
+		switch(screen) {
+		case c.SCREEN.TITLE:
+			if(button.id=c.BUTTONS.START){
+				screen=c.SCREEN.GAME;
+				events.startPresents.notify();
+			}
+			break;
+		case c.SCREEN.GAME:
+			if(button.id=c.BUTTONS.MENU){
+				screen=c.SCREEN.TITLE;
+				events.startTitle.notify();
+			}
+			
+			break;
+
+		default:
+			break;
+		}
+	} 
 	
 	function addScore(ammount){
 		score+=ammount;

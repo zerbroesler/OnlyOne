@@ -1,12 +1,16 @@
-function CanvasArea() {
+function CanvasArea(sprites) {
 
 	var canvas=undefined;
 	var stage = undefined;
 	var sizeX = c.CANVAS_SIZE_X;
 	var sizeY = c.CANVAS_SIZE_Y;
+	var blocksize = Math.floor(sizeY/100);
 
 	this.getStage = function() {
 		return stage;
+	};
+	this.getCanvas = function() {
+		return canvas;
 	};
 	this.getSize = function(){
 		return {
@@ -31,4 +35,13 @@ function CanvasArea() {
 	};
 
 	stage = this.setCanvas();
-}
+	
+	this.drawImage = function(name, x, y,xs,ys){
+		var image = sprites.getSprite(name);
+		x=x*blocksize;
+		y=y*blocksize;
+		xs=xs*blocksize;
+		ys=ys*blocksize;
+	    stage.drawImage(image.image, x, y,xs,ys);
+	};
+};

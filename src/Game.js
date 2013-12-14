@@ -11,6 +11,7 @@ function Game() {
     var sound=undefined;
     var sprites=undefined;
     var game=this;
+    var buttons=undefined; // buttons is ui and model in one!
     
     this.start = function() {
     	sound=new Sound();
@@ -22,7 +23,11 @@ function Game() {
     };
     function spritesLoaded(){
     	game.initAll();
-        // Go to the UI loop. The model has registered an own callback at GameModel.startGame();
+    	
+    	gameModel.setScreen(c.SCREEN.TITLE);
+    	
+        // Go to the UI loop. The model registers an own callback at GameModel.startGame();
+        gameModel.startGame();
         loop();
     };
 
@@ -37,13 +42,11 @@ function Game() {
         gameView.createCanvas();
 
         gameController.initialize();
-        gameController.start();
+        gameController.startTitle();
         
         if(gameModel.getScreen()==c.SCREEN.TITLE){
         	return;
         }
-//        gameModel.registerLevelDone(this.levelDone);
-//        gameModel.startGame();
     	
     };
     loop = function() {

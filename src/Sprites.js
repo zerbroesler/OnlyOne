@@ -4,6 +4,12 @@ function Sprites() {
 		player : {
 			path : 'player'
 		},
+		tree1 : {
+			path : 'tree1'
+		},
+		present1 : {
+			path : 'present1'
+		},
 	};
 
 	this.loadSprites = function(callback) {

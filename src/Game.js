@@ -12,18 +12,23 @@ function Game() {
     var sprites=undefined;
     var game=this;
     var buttons=undefined; // buttons is ui and model in one!
+	var loading=document.getElementById('loading');
     
     this.start = function() {
+    	loading.innerHTML+='..';
     	sound=new Sound();
 //    	sound.loadSounds(soundLoaded);
     	sound.loadSounds(null);
     	soundLoaded();
     };
     function soundLoaded(){
+    	loading.innerHTML+='..';
     	sprites=new Sprites();
     	sprites.loadSprites(spritesLoaded);
     };
     function spritesLoaded(){
+    	// Loading finished, remove the loading text
+    	loading.parentNode.removeChild(loading);
     	game.initAll();
     	
     	gameModel.setScreen(c.SCREEN.TITLE);

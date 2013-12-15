@@ -4,12 +4,10 @@ function PresentsUi(gameModel,canvas,sprites,buttonUi,blocksize){
 	this.draw=function(){
 		canvas.clearScreen();
 		canvas.drawImage('tree1',5,30,40,50);
-		canvas.drawImage('present1',2,80,20,10);
-		canvas.drawImage('present2',25,80,20,10);
+		canvas.drawImage('person1',60,20,20,30);
+		canvas.drawImage('person2',80,20,20,30);
 		canvas.drawImage('person1',100,20,20,30);
-		canvas.drawImage('person2',130,20,20,30);
-		canvas.drawImage('attribute0',105,5,15,15);
-		canvas.drawImage('attribute2',130,5,20,15);
+		canvas.drawImage('person2',120,20,20,30);
 		buttonUi.drawAll();
 		canvas.clearRectFront();
 		this.drawAllPresents();
@@ -29,15 +27,15 @@ function PresentsUi(gameModel,canvas,sprites,buttonUi,blocksize){
         var posY = present.y*blocksize;
         var sizeX = present.sx*blocksize;
         var sizeY = present.sy*blocksize;
-        var name = present.name;
-        
-        canvas.drawImageFront(name,posX,posY,sizeX,sizeY);
-        
+        for (var i = 0; i < present.name.length; i++) {
+			var name = present.name[i];
+	        canvas.drawImageFront(name,posX,posY,sizeX,sizeY);
+			
+		}
 
     };
 
     this.checkClicked = function(mouse) {
-    	var presents = gameModel.getPresents().getPresents();
     	// Checks which button was clicked. Also supports radio button groups
         var present = this.getClicked(mouse);
         if (!present) {
@@ -51,6 +49,10 @@ function PresentsUi(gameModel,canvas,sprites,buttonUi,blocksize){
     	// Check which button was clicked
         for (var i = 0; i < presents.length; i++) {
             if (checkPresentClicked(presents[i], mouse)) {
+                if(presents[i].noMove){
+                	// Cannot move or interact with these
+                	continue;
+                }
                 return presents[i];
             };
         };

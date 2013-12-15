@@ -13,18 +13,17 @@ var c={
     },
     BUTTONS:{
     	START : 1,
+    	NEXT: 2,
     	
     	MENU : 10,
-    	
-    	PRESENT1:100,
+    	CHECK: 11,
+    	PERSONS:50,	
+    	PRESENTS:100,	
     },
     
     ATTRIBUTE:{
     	COLOR:{
     		COUNT:5,
-    		RED:1,
-    		GREEN:2,
-    		BLUE:3,
     	},
     	BAND:{
     		COUNT:4,

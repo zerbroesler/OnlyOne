@@ -4,6 +4,7 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 		// Add callbacks and register for model changes
 		gameModel.registerEvent('startTitle',this.startTitle);
 		gameModel.registerEvent('startPresents',this.startPresents);
+		gameModel.registerEvent('correctAnswer',correctAnswer);
 		gameView.registerMouse();
 	};
 	
@@ -26,7 +27,7 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 				sx:10,
 				sy:2,
 		});
-		sound.playSound("song1");
+//		sound.playSound("song1");//TODO Title song
 	};
 	
 	this.startPresents = function(){
@@ -42,60 +43,29 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 			sx:3,
 			selected:false,
 		});
+		buttons.addButton({
+			text:'Check',
+			id: c.BUTTONS.CHECK,
+			x:30,
+			y:10,
+			sx:3,
+			sy:3,
+			selected:false,
+		});
 		loadLevel();
 	};
 
 	
 	function loadLevel(number){
+		var level = gameModel.getLevel(number);
+		gameModel.clearAssigned();
 		// just one level now
-		var persons=[
-		             {
-		            	col:1,
-		            	band:0,
-		            	patt:0,
-		             },
-		             {
-		            	col:0,
-		            	band:2,
-		            	patt:0,
-		             },
-		             {
-		            	col:0,
-		            	band:1,
-		            	patt:0,
-		             },
-		             {
-			           	col:0,
-			           	band:0 ,
-			           	patt:1,
-			         },
-		];
-		var presents=[
-	             {
-		            	col:1,
-		            	band:1,
-		            	patt:2,
-		             },
-		             {
-		            	col:2,
-		            	band:2,
-		            	patt:3,
-		             },
-		             {
-		            	col:3,
-		            	band:1,
-		            	patt:4,
-		             },
-		             {
-			           	col:1,
-			           	band:3 ,
-			           	patt:1,
-			         },
-		              ];
+		var persons = level.getPersons();
+		var presents = level.getPresents();
 		
 		initLevel(persons,presents);
 	};
-
+	
 	
 	function initLevel(persons,presentsList){
 		var buttons=gameModel.getButtons();
@@ -107,7 +77,7 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 			// Target 'button'
 			buttons.addButton({
 				text:' ',
-				id: i,
+				id: i+c.BUTTONS.PERSONS,
 				x:xPos,
 				y:10,
 				sx:3,
@@ -118,8 +88,9 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 				var value=person[att];
 				if(value!=0 || att=='col'){
 					presents.addPresent({
+						noMove : true,  // Cannot be clicked or moved
 						name: 'a'+att+value,
-//						id: c.ATTRIBUTE.COLOR.RED,
+						id: i+200,
 						x:xPos*5,
 						y:1,
 						sx:10,
@@ -143,7 +114,7 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 				var value=present[att];
 				presents.addPresent({
 					name: 'a'+att+value,
-//					id: c.ATTRIBUTE.COLOR.RED,
+					id: i+c.BUTTONS.PRESENTS,
 					x:xPos*5,
 					y:yPos,
 					sx:10,
@@ -151,40 +122,19 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 				});
 			}
 			
-		} // for persons
+		} // for presents
 		
-//		buttons.addButton({
-//			text:'Oma',
-//			id: c.BUTTONS.PRESENT1,
-//			x:20,
-//			y:10,
-//			sx:3,
-//			sy:3,
-//			selected:false,
-//		});
-//		presents.addPresent({
-//			name: 'attribute1',
-//			id: c.ATTRIBUTE.COLOR.RED,
-//			x:20,
-//			y:20,
-//			sx:10,
-//			sy:10,
-//		});
-//		presents.addPresent({
-//			name: 'attribute2',
-//			id: c.ATTRIBUTE.COLOR.RED,
-//			x:40,
-//			y:20,
-//			sx:10,
-//			sy:10,
-//		});
-//		presents.addPresent({
-//			name: 'acol1',
-//			id: c.ATTRIBUTE.COLOR.RED,
-//			x:60,
-//			y:20,
-//			sx:10,
-//			sy:10,
-//		});
+	}// initLevel
+	
+	function correctAnswer(){
+		gameModel.getButtons().addButton({
+			text:'Next Level',
+			id: c.BUTTONS.NEXT,
+			x:12,
+			y:15,
+			sx:10,
+			sy:2,
+		});
 	}
+
 }

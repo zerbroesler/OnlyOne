@@ -7,6 +7,7 @@ function GameView(gameModel,sprites) {
 	var titleUi=undefined;
 	var buttonUi=undefined;
 	var selectedPresent=undefined;
+	var selectedButton=undefined;
 	var selectionPos={};
 
 	this.createCanvas = function() {
@@ -62,6 +63,7 @@ function GameView(gameModel,sprites) {
 			button.selected=true;
 			selectedPresent.x=button.x*5;
 			selectedPresent.y=button.y*5;
+			selectedButton=button;
 			return;
 		};
 		if(selectedPresent){
@@ -70,10 +72,13 @@ function GameView(gameModel,sprites) {
 			var pos=presentsUi.screenToCoord({x:x,y:y});
 			selectedPresent.x=pos.x;
 			selectedPresent.y=pos.y;
+			selectedButton=undefined;
 		}
 		
 	};
 	function moveEnd(event){
+		gameModel.assignTo(selectedPresent,selectedButton);
+		selectedButton=undefined;
 		selectedPresent=undefined;
 	};
 	

@@ -151,45 +151,45 @@ function GameModel() {
 		var persons=[
 	             {
 	            	col:1,
+	            	patt:0,
 	            	band:0,
-	            	patt:0,
 	             },
 	             {
 	            	col:0,
+	            	patt:0,
 	            	band:2,
-	            	patt:0,
 	             },
 	             {
 	            	col:0,
-	            	band:1,
 	            	patt:0,
+	            	band:1,
 	             },
 	             {
 		           	col:0,
-		           	band:0 ,
 		           	patt:1,
+		           	band:0 ,
 		         },
 		         ];
 		var presents=[
              {
 	            	col:1,
-	            	band:1,
 	            	patt:2,
+	            	band:1,
 	             },
 	             {
 	            	col:2,
-	            	band:2,
 	            	patt:3,
+	            	band:2,
 	             },
 	             {
 	            	col:3,
-	            	band:1,
 	            	patt:4,
+	            	band:1,
 	             },
 	             {
 		           	col:1,
-		           	band:3 ,
 		           	patt:1,
+		           	band:3 ,
 		         },
 	              ];
 		level ={

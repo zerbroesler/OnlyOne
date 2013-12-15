@@ -5,7 +5,7 @@ function Sprites() {
 			path : 'player'
 		},
 		tree1 : {
-			path : 'tree1'
+			path : 'baum'
 		},
 		// Presents
 		present1 : {
@@ -20,6 +20,12 @@ function Sprites() {
 		},
 		person2 : {
 			path : 'person2'
+		},
+		person3 : {
+			path : 'person3'
+		},
+		person4 : {
+			path : 'person4'
 		},
 		// Attributes
 		attribute0 : {

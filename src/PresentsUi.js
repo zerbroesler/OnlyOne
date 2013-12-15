@@ -3,11 +3,11 @@ function PresentsUi(gameModel,canvas,sprites,buttonUi,blocksize){
 	
 	this.draw=function(){
 		canvas.clearScreen();
-		canvas.drawImage('tree1',5,30,40,50);
-		canvas.drawImage('person1',60,20,20,30);
-		canvas.drawImage('person2',80,20,20,30);
-		canvas.drawImage('person1',100,20,20,30);
-		canvas.drawImage('person2',120,20,20,30);
+		canvas.drawImage('tree1',2,15,45,55);
+		canvas.drawImage('person1',50,30,20,40);
+		canvas.drawImage('person2',70,30,20,40);
+		canvas.drawImage('person3',90,30,20,40);
+		canvas.drawImage('person4',110,30,20,40);
 		buttonUi.drawAll();
 		canvas.clearRectFront();
 		this.drawAllPresents();

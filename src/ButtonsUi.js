@@ -36,6 +36,10 @@ function ButtonsUi(gameModel,stage,blocksize) {
             stage.fillStyle = c.BUTTON.BACKGROUND_COLOR;
             textColor= c.BUTTON.TEXT_COLOR;
         }
+        if(button.invisible){
+        	return;
+//            stage.fillStyle = 'fuchsia';
+        }
         stage.fillRect(x,y,sx,sy);
         stage.fillStyle = textColor;
         stage.font = "20px Verdana";
@@ -52,6 +56,9 @@ function ButtonsUi(gameModel,stage,blocksize) {
         if (!button) {
             return undefined;
         }
+        if(button.invisible==true){
+        	return undefined;
+        } 
         // Radio button logic
         if (button.group) {
             button.selected=true;

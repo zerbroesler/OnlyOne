@@ -47,7 +47,7 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 			text:'Check',
 			id: c.BUTTONS.CHECK,
 			x:30,
-			y:10,
+			y:14,
 			sx:3,
 			sy:3,
 			selected:false,
@@ -72,17 +72,17 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 		var presents=gameModel.getPresents();
 		for (var i = 0; i < persons.length; i++) {
 			var person = persons[i];
-			var xPos=12+i*4;
+			var xPos=10+i*4;
 
 			// Target 'button'
 			buttons.addButton({
 				text:' ',
 				id: i+c.BUTTONS.PERSONS,
 				x:xPos,
-				y:10,
-				sx:3,
-				sy:2,
-				selected:false,
+				y:6,
+				sx:4,
+				sy:8,
+				invisible:true,
 			});
 			for ( var att in person) {
 				var value=person[att];
@@ -91,10 +91,10 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 						noMove : true,  // Cannot be clicked or moved
 						name: 'a'+att+value,
 						id: i+200,
-						x:xPos*5,
+						x:xPos*5+3,
 						y:1,
-						sx:10,
-						sy:10,
+						sx:14,
+						sy:14,
 					});
 				}
 			}
@@ -103,11 +103,11 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 		// Presents
 		for (var i = 0; i < presentsList.length; i++) {
 			var present = presentsList[i];
-			var xPos=2+i*3;
-			var yPos=80;
+			var xPos=1+i*3;
+			var yPos=70;
 			if(i>2){
-				yPos+=10;
-				xPos-=7;
+				yPos+=14;
+				xPos-=8;
 			}
 
 			for ( var att in present) {
@@ -117,8 +117,8 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 					id: i+c.BUTTONS.PRESENTS,
 					x:xPos*5,
 					y:yPos,
-					sx:10,
-					sy:10,
+					sx:14,
+					sy:14,
 				});
 			}
 			

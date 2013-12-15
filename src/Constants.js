@@ -1,6 +1,6 @@
 var c={
-    CANVAS_SIZE_X : 1000,
-    CANVAS_SIZE_Y : 600,
+    CANVAS_SIZE_X : 900,
+    CANVAS_SIZE_Y : 500,
     
     BUTTON: {
         BACKGROUND_COLOR : "#3333AA",

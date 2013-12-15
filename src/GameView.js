@@ -9,6 +9,7 @@ function GameView(gameModel,sprites) {
 	var selectedPresent=undefined;
 	var selectedButton=undefined;
 	var selectionPos={};
+	var removed=false;
 
 	this.createCanvas = function() {
 		canvasArea = new CanvasArea(sprites);
@@ -28,15 +29,27 @@ function GameView(gameModel,sprites) {
 
 	this.registerMouse = function(){
 		var canvas=canvasArea.getFrontCanvas();
-		canvas.addEventListener('touchstart',this.checkClick);
-		canvas.addEventListener('mousedown',this.checkClick);
+		canvas.addEventListener('touchstart',checkTouch);
+		canvas.addEventListener('mousedown',checkClick);
 		canvas.addEventListener('touchmove',moveAround);
 		canvas.addEventListener('mousemove',moveAround);
 		canvas.addEventListener('touchend',moveEnd);
 		canvas.addEventListener('mouseup',moveEnd);
 	};
 	
-	this.checkClick = function(event){
+	function checkTouch(event){
+		// remove click events
+		if(!removed){
+			var canvas=canvasArea.getFrontCanvas();
+			canvas.removeEventListener('mousedown',checkClick);
+			canvas.removeEventListener('mousemove',moveAround);
+			canvas.removeEventListener('mouseup',moveEnd);
+		removed=true;
+		}
+		checkClick(event);
+	}
+	
+	function checkClick(event){
 		var mouse=new Mouse(event);
 		var button = buttonUi.checkClicked(mouse);
 		if(button){
@@ -57,12 +70,12 @@ function GameView(gameModel,sprites) {
 	};
 	function moveAround(event){
 		var mouse=new Mouse(event);
-		var button = buttonUi.checkClicked(mouse);
+		var button = buttonUi.getClicked(mouse);
 		if(button && selectedPresent){
 			//Hover graphics
 			button.selected=true;
-			selectedPresent.x=button.x*5;
-			selectedPresent.y=button.y*5;
+			selectedPresent.x=button.x*5+3;
+			selectedPresent.y=button.y*5+button.sy*5-selectedPresent.sy;
 			selectedButton=button;
 			return;
 		};

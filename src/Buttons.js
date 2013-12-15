@@ -18,6 +18,7 @@ function Buttons(gameModel){
         spec.sy = iSpec.sy || 1;
         spec.selected = iSpec.selected || false;
         spec.group = iSpec.group;
+        spec.invisible = iSpec.invisible || false;
         buttons.push(spec);
         gameModel.registerEvent('buttonSelection',selectButton);
     };

@@ -8,6 +8,7 @@ function GameModel() {
 	var buttons=new Buttons(this);
 	var presents=new Presents(this);
 	var level=undefined;
+	var levelNumber=undefined;
 	var assigned=undefined;
 
 	var events={
@@ -15,12 +16,17 @@ function GameModel() {
 			startPresents : new Event(),
 			buttonSelection : new Event(),
 			correctAnswer: new Event(),
+			nextLevel: new Event(),
+			checked: new Event(),
 	};
 	this.setScreen = function(iScreen){
 		screen=iScreen;
 	};
 	this.getScreen = function(){
 		return screen;
+	};
+	this.setLevel = function(levelNo){
+		levelNumber=levelNo;
 	};
 	this.getScore = function(){
 		return score;
@@ -69,6 +75,9 @@ function GameModel() {
 				// check if it was solved correctly
 				checkSolution();
 				break;
+			case c.BUTTONS.NEXT:
+				// Next Level
+				nextLevel();
 			default:
 				break;
 			}// switch button.id
@@ -77,19 +86,24 @@ function GameModel() {
 			break;
 		}// switch screen
 	}; 
-	this.presentClicked = function(present){
-		switch(screen) {
-		case c.SCREEN.TITLE:
-			a=b; //TODO: Error
-		case c.SCREEN.GAME:
-			a=1;
-			// No further processing here
-			return;
-			break;
-		default:
-			break;
-		}
-	}; 
+	
+//	this.presentClicked = function(present){
+//		switch(screen) {
+//		case c.SCREEN.TITLE:
+//			a=b; //TODO: Error
+//		case c.SCREEN.GAME:
+//			a=1;
+//			// No further processing here
+//			return;
+//			break;
+//		default:
+//			break;
+//		}
+//	};
+	function nextLevel(){
+		levelNumber++;
+		events.nextLevel.notify();
+	}
 	
 	this.clearAssigned = function(){
 		var persons =level.getPersons();
@@ -103,6 +117,23 @@ function GameModel() {
 			assigned[button.id-c.BUTTONS.PERSONS]=present.id-c.BUTTONS.PRESENTS;
 		}
 	};
+	this.unassign = function(id){
+		assigned[id]=-1;
+	};
+	this.getAssigned = function(button){
+		if(assigned){
+			return assigned[button.id-c.BUTTONS.PERSONS];
+		}
+	};
+	this.findAssigned = function(present){
+		for (var i = 0; i < assigned.length; i++) {
+			var assign = assigned[i];
+			if (assign+c.BUTTONS.PRESENTS==present.id){
+				return i;
+			}
+		}
+		return undefined;
+	};
 	
 	function checkSolution(){
 		// solution is in level
@@ -114,15 +145,20 @@ function GameModel() {
 			
 			// Get the present
 			if(assigned[i]==-1){
+				person.correct=false;
 				continue; // No present assigned
 			}
 			var present=presents[assigned[i]];
 			
 			// compare present with person wish
 			if(compare(present,person)){
+				person.correct=true;
 				correct++;
+			}else{
+				person.correct=false;
 			}
-		}
+		}	
+		events.checked.notify();
 		// Everything correct?
 		if(correct==persons.length){
 			events.correctAnswer.notify();
@@ -147,59 +183,14 @@ function GameModel() {
 		callback=undefined;
 	};
 
-	this.getLevel =function(number){
-		var persons=[
-	             {
-	            	col:1,
-	            	patt:0,
-	            	band:0,
-	             },
-	             {
-	            	col:0,
-	            	patt:0,
-	            	band:2,
-	             },
-	             {
-	            	col:0,
-	            	patt:0,
-	            	band:1,
-	             },
-	             {
-		           	col:0,
-		           	patt:1,
-		           	band:0 ,
-		         },
-		         ];
-		var presents=[
-             {
-	            	col:1,
-	            	patt:2,
-	            	band:1,
-	             },
-	             {
-	            	col:2,
-	            	patt:3,
-	            	band:2,
-	             },
-	             {
-	            	col:3,
-	            	patt:4,
-	            	band:1,
-	             },
-	             {
-		           	col:1,
-		           	patt:1,
-		           	band:3 ,
-		         },
-	              ];
-		level ={
-			getPersons:function(){
-				return persons;
-			},
-			getPresents:function(){
-				return presents;
-			}
-		};
+	this.loadLevel =function(){
+		level = new Levels(levelNumber);
+		this.clearAssigned();
+//		buttons.reset();
+		presents.reset();
+		
+	};
+	this.getLevel =function(){
 		return level;
 	};
 	

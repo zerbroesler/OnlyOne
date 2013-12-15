@@ -27,6 +27,18 @@ function Sprites() {
 		person4 : {
 			path : 'person4'
 		},
+		person1a : {
+			path : 'person1a'
+		},
+		person2a : {
+			path : 'person2a'
+		},
+		person3a : {
+			path : 'person3a'
+		},
+		person4a : {
+			path : 'person4a'
+		},
 		// Attributes
 		attribute0 : {
 			path : 'blase'

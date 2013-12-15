@@ -5,6 +5,8 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 		gameModel.registerEvent('startTitle',this.startTitle);
 		gameModel.registerEvent('startPresents',this.startPresents);
 		gameModel.registerEvent('correctAnswer',correctAnswer);
+		gameModel.registerEvent('checked',checked);
+		gameModel.registerEvent('nextLevel',nextLevel);
 		gameView.registerMouse();
 	};
 	
@@ -32,6 +34,16 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 	
 	this.startPresents = function(){
 		sound.stopSound("song1");
+		gameModel.setLevel(1);
+		setupLevelUi();
+		loadLevel();
+	};
+	function nextLevel(){
+		setupLevelUi();
+		loadLevel();
+	} 
+	
+	function setupLevelUi(){
 		gameView.clearAll();
 		var buttons=gameModel.getButtons();
 		buttons.reset();
@@ -40,7 +52,8 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 			id: c.BUTTONS.MENU,
 			x:0,
 			y:0,
-			sx:3,
+			sx:4,
+			sy:2,
 			selected:false,
 		});
 		buttons.addButton({
@@ -52,12 +65,13 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 			sy:3,
 			selected:false,
 		});
-		loadLevel();
-	};
+		
+	}
 
 	
-	function loadLevel(number){
-		var level = gameModel.getLevel(number);
+	function loadLevel(){
+		gameModel.loadLevel();
+		var level = gameModel.getLevel();
 		gameModel.clearAssigned();
 		// just one level now
 		var persons = level.getPersons();
@@ -72,15 +86,15 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 		var presents=gameModel.getPresents();
 		for (var i = 0; i < persons.length; i++) {
 			var person = persons[i];
-			var xPos=10+i*4;
+			var xPos=i;
 
 			// Target 'button'
 			buttons.addButton({
 				text:' ',
 				id: i+c.BUTTONS.PERSONS,
-				x:xPos,
+				x:10+xPos*c.PERSON.XSIZE/5,
 				y:6,
-				sx:4,
+				sx:c.PERSON.XSIZE/5,
 				sy:8,
 				invisible:true,
 			});
@@ -91,8 +105,8 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 						noMove : true,  // Cannot be clicked or moved
 						name: 'a'+att+value,
 						id: i+200,
-						x:xPos*5+3,
-						y:1,
+						x:xPos*c.PERSON.XSIZE+60,
+						y:5,
 						sx:14,
 						sy:14,
 					});
@@ -105,9 +119,9 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 			var present = presentsList[i];
 			var xPos=1+i*3;
 			var yPos=70;
-			if(i>2){
+			if(i>=2){
 				yPos+=14;
-				xPos-=8;
+				xPos-=5; //-=8;
 			}
 
 			for ( var att in present) {
@@ -126,6 +140,11 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 		
 	}// initLevel
 	
+	function checked(){
+		// Redraw ui when checked
+		gameView.clearAll();
+	}
+	
 	function correctAnswer(){
 		gameModel.getButtons().addButton({
 			text:'Next Level',
@@ -136,5 +155,6 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 			sy:2,
 		});
 	}
+	
 
 }

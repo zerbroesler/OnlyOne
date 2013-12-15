@@ -58,7 +58,12 @@ function GameView(gameModel,sprites) {
 		};
 		var present = presentsUi.checkClicked(mouse);
 		if(present){
-			gameModel.presentClicked(button);
+			// TODO: Check if it was already assigned
+			var id = gameModel.findAssigned(present);
+			if(id!==undefined){
+				gameModel.unassign(id);
+			};
+//			gameModel.presentClicked(button);
 			selectedPresent=present;
 			var presentScreenPos = presentsUi.coordToScreen(present);
 			selectionPos={
@@ -71,10 +76,11 @@ function GameView(gameModel,sprites) {
 	function moveAround(event){
 		var mouse=new Mouse(event);
 		var button = buttonUi.getClicked(mouse);
+		if(button && gameModel.getAssigned(button)!=-1){
+			button=undefined;
+		}
 		if(button && selectedPresent){
-			//Hover graphics
-			button.selected=true;
-			selectedPresent.x=button.x*5+3;
+			selectedPresent.x=button.x*5+8;
 			selectedPresent.y=button.y*5+button.sy*5-selectedPresent.sy;
 			selectedButton=button;
 			return;

@@ -3,12 +3,24 @@ function PresentsUi(gameModel,canvas,sprites,buttonUi,blocksize){
 	
 	this.draw=function(){
 		canvas.clearScreen();
+		var stage = canvas.getStage();
+		stage.shadowBlur=10;
+		stage.shadowColor = "gray";
 		canvas.drawImage('tree1',2,15,45,55);
-		canvas.drawImage('person1',50,30,20,40);
-		canvas.drawImage('person2',70,30,20,40);
-		canvas.drawImage('person3',90,30,20,40);
-		canvas.drawImage('person4',110,30,20,40);
+		
+		// Persons
+		var persons = gameModel.getLevel().getPersons();
+		for (var i = 0; i < persons.length; i++) {
+			var person = persons[i];
+			var image='person'+(i+1);
+			if(person.correct){
+				image+='a';
+			}
+			canvas.drawImage(image,50+i*c.PERSON.XSIZE,30,c.PERSON.XSIZE,c.PERSON.YSIZE);
+			
+		}
 		buttonUi.drawAll();
+		stage.shadowBlur=0;
 		canvas.clearRectFront();
 		this.drawAllPresents();
 	};

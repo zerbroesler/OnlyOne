@@ -23,14 +23,19 @@ var c={
     
     ATTRIBUTE:{
     	COLOR:{
-    		COUNT:5,
+    		COUNT:4,
     	},
     	BAND:{
-    		COUNT:4,
+    		COUNT:3,
     	},
     	PATTERN:{
     		COUNT:4,
     	},
+    },
+    
+    PERSON: {
+    	XSIZE:30,
+    	YSIZE:40,
     },
     
     SCREEN: {
@@ -40,7 +45,7 @@ var c={
     },
     
     TITLE_BACKGROUND_COLOR : "#F7EE59",
-    BACKGROUND_COLOR : "#888888",
+    BACKGROUND_COLOR : "#A0A0A0",
     TEXT_COLOR: "#2020F0",
     
     BUTTON_BACKGROUND_COLOR : "#FFFF00",

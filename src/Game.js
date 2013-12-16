@@ -42,7 +42,7 @@ function Game() {
         // Init Model
         gameModel = new GameModel();
     	// Init View
-        gameView = new GameView(gameModel,sprites);
+        gameView = new GameView(gameModel,sprites,sound);
         // Init Controller
         gameController = new GameController(gameModel,gameView,sound,sprites,game);
         

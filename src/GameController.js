@@ -7,6 +7,7 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 		gameModel.registerEvent('startInstructions',this.startInstructions);
 		gameModel.registerEvent('endScreen',this.endScreen);
 		gameModel.registerEvent('correctAnswer',correctAnswer);
+		gameModel.registerEvent('wrongAnswer',wrongAnswer);
 		gameModel.registerEvent('checked',checked);
 		gameModel.registerEvent('nextLevel',nextLevel);
 		gameView.registerMouse();
@@ -23,16 +24,6 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 				sx:10,
 				sy:2,
 		});
-<<<<<<< HEAD
-//		gameModel.getButtons().addButton({
-//				text:'Tutorial',
-//				x:12,
-//				y:15,
-//				sx:10,
-//				sy:2,
-//		});
-		sound.playSound("song1");//TODO Title song
-=======
 		gameModel.getButtons().addButton({
 				text:'Instructions',
 				id :c.BUTTONS.INSTRUCIONS,
@@ -41,8 +32,7 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 				sx:10,
 				sy:2,
 		});
-//		sound.playSound("song1");//TODO Title song
->>>>>>> 458c0694e061bfd248c86bec772f820af631fdf0
+		sound.playSound("song1");//TODO Title song
 	};
 
 	this.startInstructions = function(){
@@ -61,7 +51,7 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 	
 	this.startPresents = function(){
 		sound.stopSound("song1");
-		gameModel.setLevel(3); // TODO: Start Level
+		gameModel.setLevel(1); // TODO: Start Level
 		setupLevelUi();
 		loadLevel();
 	};
@@ -71,6 +61,7 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 	} 
 	this.endScreen = function(){
 		gameView.clearAll();
+		sound.playSound("hey");
 		var buttons=gameModel.getButtons();
 		buttons.reset();
 		buttons.addButton({
@@ -196,6 +187,7 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 	}
 	
 	function correctAnswer(){
+		sound.playSound("success");
 		gameModel.getButtons().addButton({
 			text:'Next Level',
 			id: c.BUTTONS.NEXT,
@@ -205,6 +197,8 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 			sy:2,
 		});
 	}
-	
+	function wrongAnswer(){
+		sound.playSound("wrong");
+	}
 
 }

@@ -1,4 +1,4 @@
-function GameView(gameModel,sprites) {
+function GameView(gameModel,sprites,sound) {
 	// View of the Game
 	// Does only know other UI objects
 
@@ -10,6 +10,7 @@ function GameView(gameModel,sprites) {
 	var selectedButton=undefined;
 	var selectionPos={};
 	var removed=false;
+	var oldButtonId=undefined;
 
 	this.createCanvas = function() {
 		canvasArea = new CanvasArea(sprites);
@@ -58,7 +59,7 @@ function GameView(gameModel,sprites) {
 		};
 		var present = presentsUi.checkClicked(mouse);
 		if(present){
-			// TODO: Check if it was already assigned
+			sound.playSound("pick");
 			var id = gameModel.findAssigned(present);
 			if(id!==undefined){
 				gameModel.unassign(id);
@@ -80,12 +81,17 @@ function GameView(gameModel,sprites) {
 			button=undefined;
 		}
 		if(button && selectedPresent){
+			if(button.id!=oldButtonId){
+				sound.playSound("put");
+				oldButtonId=button.id;
+			}
 			selectedPresent.x=button.x*5+8;
 			selectedPresent.y=button.y*5+button.sy*5-selectedPresent.sy;
 			selectedButton=button;
 			return;
 		};
 		if(selectedPresent){
+			oldButtonId=undefined;
 			var x=mouse.x-selectionPos.x;
 			var y=mouse.y-selectionPos.y;
 			var pos=presentsUi.screenToCoord({x:x,y:y});

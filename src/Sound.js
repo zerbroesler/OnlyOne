@@ -4,6 +4,21 @@ function Sound() {
         pling:{
             path: 'pling'
         },
+        pick:{
+            path: 'pick'
+        },
+        put:{
+            path: 'put'
+        },
+        hey:{
+            path: 'hey'
+        },
+        success:{
+            path: 'success'
+        },
+        wrong:{
+            path: 'wrong'
+        },
         song1:{
             path: 'kinderlein2'
         },

@@ -18,6 +18,7 @@ function GameModel() {
 			endScreen : new Event(),
 			buttonSelection : new Event(),
 			correctAnswer: new Event(),
+			wrongAnswer: new Event(),
 			nextLevel: new Event(),
 			checked: new Event(),
 	};
@@ -29,6 +30,9 @@ function GameModel() {
 	};
 	this.setLevel = function(levelNo){
 		levelNumber=levelNo;
+	};
+	this.getLevelNumber = function(levelNo){
+		return levelNumber;
 	};
 	this.getScore = function(){
 		return score;
@@ -186,6 +190,8 @@ function GameModel() {
 		// Everything correct?
 		if(correct==persons.length){
 			events.correctAnswer.notify();
+		}else{
+			events.wrongAnswer.notify();
 		}
 	}
 	function compare(present,person){

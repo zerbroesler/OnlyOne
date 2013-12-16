@@ -61,7 +61,7 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 	
 	this.startPresents = function(){
 		sound.stopSound("song1");
-		gameModel.setLevel(1); // TODO: Start Level
+		gameModel.setLevel(3); // TODO: Start Level
 		setupLevelUi();
 		loadLevel();
 	};

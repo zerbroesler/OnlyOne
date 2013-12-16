@@ -1,18 +1,8 @@
 function Sprites() {
 
 	var sprites = {
-		player : {
-			path : 'player'
-		},
 		tree1 : {
 			path : 'baum'
-		},
-		// Presents
-		present1 : {
-			path : 'present1'
-		},
-		present2 : {
-			path : 'present2'
 		},
 		// Persons
 		person1 : {
@@ -39,17 +29,6 @@ function Sprites() {
 		person4a : {
 			path : 'person4a'
 		},
-		// Attributes
-		attribute0 : {
-			path : 'blase'
-		},
-		attribute1 : {
-			path : 'attribute1'
-		},
-		attribute2 : {
-			path : 'attribute2'
-		},
-		
 	};
 
 	this.loadSprites = function(callback) {
@@ -62,7 +41,7 @@ function Sprites() {
 			var path='aband'+i;
 			addSprite(path);
 		};
-		for (var i = 1; i <= c.ATTRIBUTE.PATTERN.COUNT ; i++) {
+		for (var i = 0; i <= c.ATTRIBUTE.PATTERN.COUNT ; i++) {
 			var path='apatt'+i;
 			addSprite(path);
 		};

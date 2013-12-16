@@ -25,7 +25,7 @@ function Levels(level){
 		         presents:[
 		             {col:1,	patt:2,	band:1,},
 		             {col:2,	patt:3,	band:2,},
-		             {col:3,	patt:4,	band:1,},
+		             {col:3,	patt:0,	band:1,},
 		             {col:1,	patt:1,	band:3,},
 			         ]
 			},

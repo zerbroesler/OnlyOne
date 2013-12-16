@@ -22,14 +22,14 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 				sy:2,
 				selected:true,
 		});
-		gameModel.getButtons().addButton({
-				text:'Tutorial',
-				x:12,
-				y:15,
-				sx:10,
-				sy:2,
-		});
-//		sound.playSound("song1");//TODO Title song
+//		gameModel.getButtons().addButton({
+//				text:'Tutorial',
+//				x:12,
+//				y:15,
+//				sx:10,
+//				sy:2,
+//		});
+		sound.playSound("song1");//TODO Title song
 	};
 	
 	this.startPresents = function(){

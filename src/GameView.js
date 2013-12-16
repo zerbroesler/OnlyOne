@@ -107,18 +107,29 @@ function GameView(gameModel,sprites) {
 			if(newScreen){
 				canvasArea.clearRectFront();
 				titleUi.drawTitle();
+				buttonUi.drawAll();
 			}
 			newScreen=false;
-			buttonUi.drawAll();
+			return;
+		}
+		if(screen==c.SCREEN.INSTRUCTIONS){
+			if(newScreen){
+				canvasArea.clearRectFront();
+				titleUi.drawInstructions();
+				buttonUi.drawAll();
+				presentsUi.drawPresents();
+			}
+			newScreen=false;
 			return;
 		}
 		if(screen==c.SCREEN.GAME){
 			if(newScreen){
 				presentsUi.draw();
+				buttonUi.drawAll();
 			}
 			newScreen=false;
-			presentsUi.draw();
-			buttonUi.drawAll();
+			presentsUi.drawPresents();
+//			presentsUi.draw();
 			return;
 		}
 		if(newScreen){

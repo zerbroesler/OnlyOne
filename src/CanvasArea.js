@@ -26,6 +26,9 @@ function CanvasArea(sprites) {
 			y:sizeY,
 		};
 	};
+	this.getBlocksize = function(){
+		return blocksize;
+	}
 
 	this.setCanvas = function() {
 

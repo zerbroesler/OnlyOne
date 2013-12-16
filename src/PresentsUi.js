@@ -20,7 +20,8 @@ function PresentsUi(gameModel,canvas,sprites,buttonUi,blocksize){
 			
 		}
 		buttonUi.drawAll();
-		stage.shadowBlur=0;
+	};
+	this.drawPresents = function(){
 		canvas.clearRectFront();
 		this.drawAllPresents();
 	};

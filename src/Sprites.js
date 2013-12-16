@@ -1,12 +1,22 @@
 function Sprites() {
 
 	var sprites = {
+		title : {
+			path : 'title'
+		},
 		tree1 : {
 			path : 'baum'
 		},
 		// Not this one
 		no : {
 			path : 'no'
+		},		
+		// = !=
+		equal : {
+			path : 'equal'
+		},		
+		notEqual : {
+			path : 'notEqual'
 		},		
 		// Persons
 		person1 : {

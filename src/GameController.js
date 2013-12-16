@@ -4,6 +4,7 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 		// Add callbacks and register for model changes
 		gameModel.registerEvent('startTitle',this.startTitle);
 		gameModel.registerEvent('startPresents',this.startPresents);
+		gameModel.registerEvent('startInstructions',this.startInstructions);
 		gameModel.registerEvent('correctAnswer',correctAnswer);
 		gameModel.registerEvent('checked',checked);
 		gameModel.registerEvent('nextLevel',nextLevel);
@@ -20,10 +21,10 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 				y:10,
 				sx:10,
 				sy:2,
-				selected:true,
 		});
 		gameModel.getButtons().addButton({
-				text:'Tutorial',
+				text:'Instructions',
+				id :c.BUTTONS.INSTRUCIONS,
 				x:12,
 				y:15,
 				sx:10,
@@ -31,6 +32,20 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 		});
 //		sound.playSound("song1");//TODO Title song
 	};
+
+	this.startInstructions = function(){
+		gameView.clearAll();
+		var buttons=gameModel.getButtons();
+		buttons.reset();
+		buttons.addButton({
+			text:'Back',
+			id: c.BUTTONS.MENU,
+			x:32,
+			y:18,
+			sx:4,
+			sy:2,
+		});
+	}
 	
 	this.startPresents = function(){
 		sound.stopSound("song1");
@@ -42,6 +57,9 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 		setupLevelUi();
 		loadLevel();
 	} 
+	this.startEndScreen = function(){
+		
+	}
 	
 	function setupLevelUi(){
 		gameView.clearAll();

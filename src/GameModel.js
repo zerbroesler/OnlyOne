@@ -13,6 +13,7 @@ function GameModel() {
 
 	var events={
 			startTitle : new Event(),
+			startInstructions : new Event(),
 			startPresents : new Event(),
 			buttonSelection : new Event(),
 			correctAnswer: new Event(),
@@ -62,7 +63,17 @@ function GameModel() {
 				screen=c.SCREEN.GAME;
 				events.startPresents.notify();
 			}
+			if(button.id==c.BUTTONS.INSTRUCIONS){
+				screen=c.SCREEN.INSTRUCTIONS;
+				events.startInstructions.notify();
+			}
 			break;
+		case c.SCREEN.INSTRUCTIONS:
+			if(button.id==c.BUTTONS.MENU){
+				screen=c.SCREEN.TITLE;
+				events.startTitle.notify();
+				return;
+			}
 		case c.SCREEN.GAME:
 			switch (button.id) {
 			case c.BUTTONS.MENU:
@@ -82,6 +93,7 @@ function GameModel() {
 				break;
 			}// switch button.id
 			break;
+		case c.SCREEN.GAME_OVER:
 		default:
 			break;
 		}// switch screen

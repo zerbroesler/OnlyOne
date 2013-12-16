@@ -11,6 +11,9 @@ function CanvasArea(sprites) {
 	this.getStage = function() {
 		return stage;
 	};
+	this.getFrontStage = function() {
+		return frontStage;
+	};
 	this.getCanvas = function() {
 		return canvas;
 	};

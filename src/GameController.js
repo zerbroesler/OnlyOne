@@ -34,7 +34,7 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 	
 	this.startPresents = function(){
 		sound.stopSound("song1");
-		gameModel.setLevel(1);
+		gameModel.setLevel(3); // TODO: Start Level
 		setupLevelUi();
 		loadLevel();
 	};
@@ -100,9 +100,17 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 			});
 			for ( var att in person) {
 				var value=person[att];
+				var no=false;
+				// Add only non 0 values which are not col(or)
 				if(value!=0 || att=='col'){
+					// negative values show a no sign
+					if(value<0){
+						value=Math.abs(value);
+						no=true;
+					}
 					presents.addPresent({
 						noMove : true,  // Cannot be clicked or moved
+						no: no,
 						name: 'a'+att+value,
 						id: i+200,
 						x:xPos*c.PERSON.XSIZE+60,

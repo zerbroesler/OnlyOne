@@ -29,6 +29,20 @@ function Levels(level){
 		             {col:1,	patt:1,	band:3,},
 			         ]
 			},
+			3:{
+				persons:[
+		               {col:0,	patt:0,	band:1,},
+		               {col:0, 	patt:0,	band:2,},
+		               {col:0, 	patt:1,	band:0,},
+		               {col:0,	patt:-1,band:-2,},
+			         ],
+		         presents:[
+		             {col:1,	patt:2,	band:1,},
+		             {col:3,	patt:1,	band:2,},
+		             {col:1,	patt:0,	band:2,},
+		             {col:1,	patt:1,	band:1,},
+			         ]
+			},
 	};
 	
 	this.getPersons =function(){

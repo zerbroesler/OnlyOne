@@ -165,9 +165,17 @@ function GameModel() {
 		}
 	}
 	function compare(present,person){
+		var value;
 		for ( var attribute in present) {
-			if(present[attribute]!=person[attribute] && person[attribute]!=0){
-				return false;
+			if(person[attribute]<0){
+				value = Math.abs(person[attribute]);
+				if(present[attribute]==value){
+					return false;
+				}
+			}else{
+				if(present[attribute]!=person[attribute] && person[attribute]!=0){
+					return false;
+				}
 			}
 		}
 		return true;

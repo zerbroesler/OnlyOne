@@ -18,11 +18,15 @@ function Presents(gameModel){
         spec.selected = iSpec.selected || false;
         spec.group = iSpec.group;
         spec.noMove = iSpec.noMove || false;
+		spec.no = iSpec.no || false;
         // check if it is only an additional attribute of a present.
         var presentExists = searchPresent(spec.id);
         if(presentExists){
         	// Update present (with name)
         	presentExists.name.push(iSpec.name);
+			if(iSpec.no){
+				presentExists.no=true;
+			}
         }else{
         	// New present
             spec.name = [iSpec.name];

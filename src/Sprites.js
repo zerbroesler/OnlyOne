@@ -4,6 +4,10 @@ function Sprites() {
 		tree1 : {
 			path : 'baum'
 		},
+		// Not this one
+		no : {
+			path : 'no'
+		},		
 		// Persons
 		person1 : {
 			path : 'person1'

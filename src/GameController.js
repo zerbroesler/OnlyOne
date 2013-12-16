@@ -4,6 +4,8 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 		// Add callbacks and register for model changes
 		gameModel.registerEvent('startTitle',this.startTitle);
 		gameModel.registerEvent('startPresents',this.startPresents);
+		gameModel.registerEvent('startInstructions',this.startInstructions);
+		gameModel.registerEvent('endScreen',this.endScreen);
 		gameModel.registerEvent('correctAnswer',correctAnswer);
 		gameModel.registerEvent('checked',checked);
 		gameModel.registerEvent('nextLevel',nextLevel);
@@ -20,8 +22,8 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 				y:10,
 				sx:10,
 				sy:2,
-				selected:true,
 		});
+<<<<<<< HEAD
 //		gameModel.getButtons().addButton({
 //				text:'Tutorial',
 //				x:12,
@@ -30,11 +32,36 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 //				sy:2,
 //		});
 		sound.playSound("song1");//TODO Title song
+=======
+		gameModel.getButtons().addButton({
+				text:'Instructions',
+				id :c.BUTTONS.INSTRUCIONS,
+				x:12,
+				y:15,
+				sx:10,
+				sy:2,
+		});
+//		sound.playSound("song1");//TODO Title song
+>>>>>>> 458c0694e061bfd248c86bec772f820af631fdf0
 	};
+
+	this.startInstructions = function(){
+		gameView.clearAll();
+		var buttons=gameModel.getButtons();
+		buttons.reset();
+		buttons.addButton({
+			text:'Back',
+			id: c.BUTTONS.MENU,
+			x:32,
+			y:18,
+			sx:4,
+			sy:2,
+		});
+	}
 	
 	this.startPresents = function(){
 		sound.stopSound("song1");
-		gameModel.setLevel(1);
+		gameModel.setLevel(1); // TODO: Start Level
 		setupLevelUi();
 		loadLevel();
 	};
@@ -42,6 +69,21 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 		setupLevelUi();
 		loadLevel();
 	} 
+	this.endScreen = function(){
+		gameView.clearAll();
+		var buttons=gameModel.getButtons();
+		buttons.reset();
+		buttons.addButton({
+			text:'Back',
+			id: c.BUTTONS.MENU,
+			x:32,
+			y:18,
+			sx:4,
+			sy:2,
+		});
+		
+		
+	}
 	
 	function setupLevelUi(){
 		gameView.clearAll();
@@ -60,7 +102,7 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 			text:'Check',
 			id: c.BUTTONS.CHECK,
 			x:30,
-			y:14,
+			y:16,
 			sx:3,
 			sy:3,
 			selected:false,
@@ -100,9 +142,17 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 			});
 			for ( var att in person) {
 				var value=person[att];
+				var no=false;
+				// Add only non 0 values which are not col(or)
 				if(value!=0 || att=='col'){
+					// negative values show a no sign
+					if(value<0){
+						value=Math.abs(value);
+						no=true;
+					}
 					presents.addPresent({
 						noMove : true,  // Cannot be clicked or moved
+						no: no,
 						name: 'a'+att+value,
 						id: i+200,
 						x:xPos*c.PERSON.XSIZE+60,

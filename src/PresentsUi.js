@@ -3,9 +3,9 @@ function PresentsUi(gameModel,canvas,sprites,buttonUi,blocksize){
 	
 	this.draw=function(){
 		canvas.clearScreen();
-		var stage = canvas.getStage();
-		stage.shadowBlur=10;
-		stage.shadowColor = "gray";
+//		var stage = canvas.getStage();
+//		stage.shadowBlur=100;
+//		stage.shadowColor = "red";
 		canvas.drawImage('tree1',2,15,45,55);
 		
 		// Persons
@@ -20,7 +20,31 @@ function PresentsUi(gameModel,canvas,sprites,buttonUi,blocksize){
 			
 		}
 		buttonUi.drawAll();
-		stage.shadowBlur=0;
+		
+		// Draw some hints in first level
+		if(gameModel.getLevelNumber()==1){
+			var stage=canvas.getStage();
+			stage.beginPath();
+			stage.strokeStyle='black';
+			stage.moveTo(50*blocksize,90*blocksize);
+			stage.bezierCurveTo(90*blocksize,90*blocksize,100*blocksize,90*blocksize,100*blocksize,75*blocksize);
+			stage.moveTo(100*blocksize,75*blocksize);
+			stage.lineTo(95*blocksize,80*blocksize);
+			stage.moveTo(100*blocksize,75*blocksize);
+			stage.lineTo(105*blocksize,80*blocksize);
+			stage.lineWidth=10;
+			stage.lineCap='round';
+			stage.stroke();
+			stage.lineWidth=1;
+			stage.fillStyle='black';
+			stage.font = 'bold '+ Math.floor(blocksize*5) +'px sans-serif ';
+			stage.textBaseline = 'top';
+			stage.textAlign = 'start';
+			stage.fillText('drag&drop presents',60*blocksize,92*blocksize);
+		}
+		
+	};
+	this.drawPresents = function(){
 		canvas.clearRectFront();
 		this.drawAllPresents();
 	};
@@ -39,10 +63,16 @@ function PresentsUi(gameModel,canvas,sprites,buttonUi,blocksize){
         var posY = present.y*blocksize;
         var sizeX = present.sx*blocksize;
         var sizeY = present.sy*blocksize;
+		if(present.name.length==1 && present.name[0]=='acol0'){
+			// don't draw an empty wish
+			return;
+		}
         for (var i = 0; i < present.name.length; i++) {
 			var name = present.name[i];
 	        canvas.drawImageFront(name,posX,posY,sizeX,sizeY);
-			
+		}
+		if(present.no){
+	        canvas.drawImageFront('no',posX,posY,sizeX,sizeY);
 		}
 
     };

@@ -25,10 +25,33 @@ function Levels(level){
 		         presents:[
 		             {col:1,	patt:2,	band:1,},
 		             {col:2,	patt:3,	band:2,},
-		             {col:3,	patt:4,	band:1,},
+		             {col:3,	patt:0,	band:1,},
 		             {col:1,	patt:1,	band:3,},
 			         ]
 			},
+			3:{
+				persons:[
+		               {col:0,	patt:0,	band:1,},
+		               {col:0, 	patt:0,	band:2,},
+		               {col:0, 	patt:1,	band:0,},
+		               {col:0,	patt:-1,band:-2,},
+			         ],
+		         presents:[
+		             {col:1,	patt:2,	band:1,},
+		             {col:3,	patt:1,	band:2,},
+		             {col:1,	patt:0,	band:2,},
+		             {col:1,	patt:1,	band:1,},
+			         ]
+			},
+	};
+	this.getMaxLevel=function(){
+		var count = 0;
+		for (var k in levels) {
+			if (levels.hasOwnProperty(k)) {
+				++count;
+			}
+		}
+		return count;
 	};
 	
 	this.getPersons =function(){

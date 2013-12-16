@@ -14,6 +14,7 @@ var c={
     BUTTONS:{
     	START : 1,
     	NEXT: 2,
+		INSTRUCTIONS:3,
     	
     	MENU : 10,
     	CHECK: 11,
@@ -29,7 +30,7 @@ var c={
     		COUNT:3,
     	},
     	PATTERN:{
-    		COUNT:4,
+    		COUNT:3,
     	},
     },
     
@@ -42,6 +43,7 @@ var c={
         TITLE:1,
         GAME:2,
         GAME_OVER:3,
+		INSTRUCTIONS:4,
     },
     
     TITLE_BACKGROUND_COLOR : "#F7EE59",

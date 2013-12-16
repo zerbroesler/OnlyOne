@@ -13,7 +13,9 @@ function GameModel() {
 
 	var events={
 			startTitle : new Event(),
+			startInstructions : new Event(),
 			startPresents : new Event(),
+			endScreen : new Event(),
 			buttonSelection : new Event(),
 			correctAnswer: new Event(),
 			nextLevel: new Event(),
@@ -27,6 +29,9 @@ function GameModel() {
 	};
 	this.setLevel = function(levelNo){
 		levelNumber=levelNo;
+	};
+	this.getLevelNumber = function(levelNo){
+		return levelNumber;
 	};
 	this.getScore = function(){
 		return score;
@@ -62,7 +67,17 @@ function GameModel() {
 				screen=c.SCREEN.GAME;
 				events.startPresents.notify();
 			}
+			if(button.id==c.BUTTONS.INSTRUCIONS){
+				screen=c.SCREEN.INSTRUCTIONS;
+				events.startInstructions.notify();
+			}
 			break;
+		case c.SCREEN.INSTRUCTIONS:
+			if(button.id==c.BUTTONS.MENU){
+				screen=c.SCREEN.TITLE;
+				events.startTitle.notify();
+				return;
+			}
 		case c.SCREEN.GAME:
 			switch (button.id) {
 			case c.BUTTONS.MENU:
@@ -82,6 +97,12 @@ function GameModel() {
 				break;
 			}// switch button.id
 			break;
+		case c.SCREEN.GAME_OVER:
+			if(button.id==c.BUTTONS.MENU){
+				screen=c.SCREEN.TITLE;
+				events.startTitle.notify();
+				return;
+			}
 		default:
 			break;
 		}// switch screen
@@ -102,6 +123,12 @@ function GameModel() {
 //	};
 	function nextLevel(){
 		levelNumber++;
+		if(levelNumber>level.getMaxLevel()){
+		// TODO: END Screen
+			screen=c.SCREEN.GAME_OVER;
+			events.endScreen.notify();
+			return;
+		}
 		events.nextLevel.notify();
 	}
 	
@@ -165,9 +192,17 @@ function GameModel() {
 		}
 	}
 	function compare(present,person){
+		var value;
 		for ( var attribute in present) {
-			if(present[attribute]!=person[attribute] && person[attribute]!=0){
-				return false;
+			if(person[attribute]<0){
+				value = Math.abs(person[attribute]);
+				if(present[attribute]==value){
+					return false;
+				}
+			}else{
+				if(present[attribute]!=person[attribute] && person[attribute]!=0){
+					return false;
+				}
 			}
 		}
 		return true;

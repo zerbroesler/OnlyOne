@@ -20,6 +20,29 @@ function PresentsUi(gameModel,canvas,sprites,buttonUi,blocksize){
 			
 		}
 		buttonUi.drawAll();
+		
+		// Draw some hints in first level
+		if(gameModel.getLevelNumber()==1){
+			var stage=canvas.getStage();
+			stage.beginPath();
+			stage.strokeStyle='black';
+			stage.moveTo(50*blocksize,90*blocksize);
+			stage.bezierCurveTo(90*blocksize,90*blocksize,100*blocksize,90*blocksize,100*blocksize,75*blocksize);
+			stage.moveTo(100*blocksize,75*blocksize);
+			stage.lineTo(95*blocksize,80*blocksize);
+			stage.moveTo(100*blocksize,75*blocksize);
+			stage.lineTo(105*blocksize,80*blocksize);
+			stage.lineWidth=10;
+			stage.lineCap='round';
+			stage.stroke();
+			stage.lineWidth=1;
+			stage.fillStyle='black';
+			stage.font = 'bold '+ Math.floor(blocksize*5) +'px sans-serif ';
+			stage.textBaseline = 'top';
+			stage.textAlign = 'start';
+			stage.fillText('drag&drop presents',60*blocksize,92*blocksize);
+		}
+		
 	};
 	this.drawPresents = function(){
 		canvas.clearRectFront();

@@ -30,6 +30,9 @@ function GameModel() {
 	this.setLevel = function(levelNo){
 		levelNumber=levelNo;
 	};
+	this.getLevelNumber = function(levelNo){
+		return levelNumber;
+	};
 	this.getScore = function(){
 		return score;
 	};

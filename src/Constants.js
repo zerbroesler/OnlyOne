@@ -29,7 +29,7 @@ var c={
     		COUNT:3,
     	},
     	PATTERN:{
-    		COUNT:4,
+    		COUNT:3,
     	},
     },
     

@@ -5,6 +5,7 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 		gameModel.registerEvent('startTitle',this.startTitle);
 		gameModel.registerEvent('startPresents',this.startPresents);
 		gameModel.registerEvent('startInstructions',this.startInstructions);
+		gameModel.registerEvent('endScreen',this.endScreen);
 		gameModel.registerEvent('correctAnswer',correctAnswer);
 		gameModel.registerEvent('checked',checked);
 		gameModel.registerEvent('nextLevel',nextLevel);
@@ -57,7 +58,19 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 		setupLevelUi();
 		loadLevel();
 	} 
-	this.startEndScreen = function(){
+	this.endScreen = function(){
+		gameView.clearAll();
+		var buttons=gameModel.getButtons();
+		buttons.reset();
+		buttons.addButton({
+			text:'Back',
+			id: c.BUTTONS.MENU,
+			x:32,
+			y:18,
+			sx:4,
+			sy:2,
+		});
+		
 		
 	}
 	
@@ -78,7 +91,7 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 			text:'Check',
 			id: c.BUTTONS.CHECK,
 			x:30,
-			y:14,
+			y:16,
 			sx:3,
 			sy:3,
 			selected:false,

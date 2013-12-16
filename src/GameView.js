@@ -132,6 +132,15 @@ function GameView(gameModel,sprites) {
 //			presentsUi.draw();
 			return;
 		}
+		if(screen==c.SCREEN.GAME_OVER){
+			if(newScreen){
+				canvasArea.clearRectFront();
+				titleUi.drawGameOver();
+				buttonUi.drawAll();
+			}
+			newScreen=false;
+			return;
+		}
 		if(newScreen){
 			// Clear screen
 			canvasArea.clearScreen();

@@ -82,4 +82,19 @@ function TitleUi(gameModel,canvas,sprites,buttonUi){
 		}
 		
 	};
+	this.drawGameOver=function(){
+		stage=canvas.getStage();
+		canvas.clearScreen();
+		var blocksize=canvas.getBlocksize()*5;
+		canvas.drawImage('title', 0, 0,180,100);  //TODO:Show
+
+        stage.fillStyle='darkgreen';
+        stage.font = 'bold '+ Math.floor(blocksize*3) +'px sans-serif ';
+        stage.textBaseline = 'top';
+        stage.textAlign = 'center';
+		stage.fillText('Winner!',16*blocksize,6*blocksize);
+		stage.fillText('Your score:'+gameModel.getScore(),16*blocksize,10*blocksize);
+
+
+	};
 };

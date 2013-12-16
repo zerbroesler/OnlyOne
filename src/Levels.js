@@ -44,6 +44,15 @@ function Levels(level){
 			         ]
 			},
 	};
+	this.getMaxLevel=function(){
+		var count = 0;
+		for (var k in levels) {
+			if (levels.hasOwnProperty(k)) {
+				++count;
+			}
+		}
+		return count;
+	};
 	
 	this.getPersons =function(){
 					return levels[level].persons;

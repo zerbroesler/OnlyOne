@@ -15,6 +15,7 @@ function GameModel() {
 			startTitle : new Event(),
 			startInstructions : new Event(),
 			startPresents : new Event(),
+			endScreen : new Event(),
 			buttonSelection : new Event(),
 			correctAnswer: new Event(),
 			nextLevel: new Event(),
@@ -94,6 +95,11 @@ function GameModel() {
 			}// switch button.id
 			break;
 		case c.SCREEN.GAME_OVER:
+			if(button.id==c.BUTTONS.MENU){
+				screen=c.SCREEN.TITLE;
+				events.startTitle.notify();
+				return;
+			}
 		default:
 			break;
 		}// switch screen
@@ -114,6 +120,12 @@ function GameModel() {
 //	};
 	function nextLevel(){
 		levelNumber++;
+		if(levelNumber>level.getMaxLevel()){
+		// TODO: END Screen
+			screen=c.SCREEN.GAME_OVER;
+			events.endScreen.notify();
+			return;
+		}
 		events.nextLevel.notify();
 	}
 	

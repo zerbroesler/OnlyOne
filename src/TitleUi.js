@@ -3,7 +3,24 @@ function TitleUi(gameModel,canvas,sprites,buttonUi){
 	this.drawTitle=function(){
 		stage=canvas.getStage();
 		canvas.clearScreen();
-//		canvas.drawImage('title', 0, 0,100,100);  //TODO:Show
+		canvas.drawImage('title', 0, 0,180,100); 
+		var blocksize=canvas.getBlocksize()*5;
+        stage.fillStyle='lightgrey';
+        stage.font = 'bold '+ Math.floor(blocksize*0.8) +'px sans-serif ';
+        stage.textBaseline = 'top';
+        stage.textAlign = 'start';
+		stage.fillText('By Zerkruemler for LD#28',26*blocksize,19*blocksize);
+	};
+	this.drawLevels=function(){
+		stage=canvas.getStage();
+		canvas.clearScreen();
+		//canvas.drawImage('title', 0, 0,180,100); 
+		var blocksize=canvas.getBlocksize()*5;
+        stage.fillStyle='lightgrey';
+        stage.font = 'bold '+ Math.floor(blocksize*0.8) +'px sans-serif ';
+        stage.textBaseline = 'top';
+        stage.textAlign = 'start';
+		stage.fillText('Levls',26*blocksize,19*blocksize);
 	};
 	
 	this.drawInstructions=function(){
@@ -29,7 +46,7 @@ function TitleUi(gameModel,canvas,sprites,buttonUi){
 		text('All of the shown attributes have to fit, others can be different.',4,5);
 
 		text('When no idea is shown, all presents may fit, but be careful that',5,10);
-		text('everybody gets a present which corresponds to their idea.',6,11);
+		text('everybody gets a present which corresponds to his/her idea.',6,11);
 		text('Sometimes they just know what present is not the correct one.',5,12);
 		text('',4,7);
 		text('',4,8);
@@ -92,8 +109,8 @@ function TitleUi(gameModel,canvas,sprites,buttonUi){
         stage.font = 'bold '+ Math.floor(blocksize*3) +'px sans-serif ';
         stage.textBaseline = 'top';
         stage.textAlign = 'center';
-		stage.fillText('Winner!',16*blocksize,6*blocksize);
-		stage.fillText('Your score:'+gameModel.getScore(),16*blocksize,10*blocksize);
+		stage.fillText('Winner!',18*blocksize,6*blocksize);
+//		stage.fillText('Your score:'+gameModel.getScore(),16*blocksize,10*blocksize);
 
 
 	};

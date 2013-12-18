@@ -18,6 +18,12 @@ function Sprites() {
 		notEqual : {
 			path : 'notEqual'
 		},		
+		check : {
+			path : 'check'
+		},		
+		back : {
+			path : 'back'
+		},		
 		// Persons
 		person1 : {
 			path : 'person1'

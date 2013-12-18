@@ -15,6 +15,7 @@ function GameModel() {
 			startTitle : new Event(),
 			startInstructions : new Event(),
 			startPresents : new Event(),
+			startLevels : new Event(),
 			endScreen : new Event(),
 			buttonSelection : new Event(),
 			correctAnswer: new Event(),
@@ -65,8 +66,10 @@ function GameModel() {
 		switch(screen) {
 		case c.SCREEN.TITLE:
 			if(button.id==c.BUTTONS.START){
-				screen=c.SCREEN.GAME;
-				events.startPresents.notify();
+				screen=c.SCREEN.LEVELS;
+				events.startLevels.notify();
+//				screen=c.SCREEN.GAME;
+//				events.startPresents.notify();
 			}
 			if(button.id==c.BUTTONS.INSTRUCIONS){
 				screen=c.SCREEN.INSTRUCTIONS;
@@ -78,6 +81,17 @@ function GameModel() {
 				screen=c.SCREEN.TITLE;
 				events.startTitle.notify();
 				return;
+			}
+		case c.SCREEN.LEVELS:
+			if(button.id==c.BUTTONS.MENU){
+				screen=c.SCREEN.TITLE;
+				events.startTitle.notify();
+				return;
+			}
+			if(button.id>100 && button.id<125){
+				this.setLevel(button.id-100);
+				screen=c.SCREEN.GAME;
+				events.startPresents.notify();				
 			}
 		case c.SCREEN.GAME:
 			switch (button.id) {

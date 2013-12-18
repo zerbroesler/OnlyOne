@@ -41,7 +41,14 @@ function PresentsUi(gameModel,canvas,sprites,buttonUi,blocksize){
 			stage.textBaseline = 'top';
 			stage.textAlign = 'start';
 			stage.fillText('drag&drop presents',60*blocksize,92*blocksize);
+			stage.fillText('check here',143*blocksize,72*blocksize);
 		}
+		var stage=canvas.getStage();
+		stage.fillStyle='black';
+		stage.font = 'bold '+ Math.floor(blocksize*5) +'px sans-serif ';
+		stage.textBaseline = 'top';
+		stage.textAlign = 'start';
+		stage.fillText('level'+gameModel.getLevelNumber(),60*blocksize,92*blocksize);
 		
 	};
 	this.drawPresents = function(){

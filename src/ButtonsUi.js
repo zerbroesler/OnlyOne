@@ -1,6 +1,7 @@
-function ButtonsUi(gameModel,stage,blocksize) {
+function ButtonsUi(gameModel,canvas,blocksize) {
 
 	
+	var stage=canvas.getStage();
 
     this.drawAll = function() {
     	var buttons = gameModel.getButtons().getButtons();
@@ -40,13 +41,20 @@ function ButtonsUi(gameModel,stage,blocksize) {
         	return;
 //            stage.fillStyle = 'fuchsia';
         }
-        stage.fillRect(x,y,sx,sy);
-        stage.fillStyle = textColor;
-        stage.font = "20px Verdana";
-        stage.textAlign = 'center';
-        stage.textBaseline = 'alphabetic';
-        stage.fillText(sText, x+sx/2,y+sy*0.5+8);
-        stage.strokeRect(x,y,sx,sy);
+        if(button.icon){
+            stage.fillStyle = c.BUTTON.SELECTED_BACKGROUND_COLOR;
+	        stage.fillRect(x,y,sx,sy);
+        	canvas.drawImage(button.icon,x/5,y/5,sx/5,sy/5);
+	        stage.strokeRect(x,y,sx,sy);
+        }else{
+	        stage.fillRect(x,y,sx,sy);
+	        stage.fillStyle = textColor;
+	        stage.font = "20px Verdana";
+	        stage.textAlign = 'center';
+	        stage.textBaseline = 'alphabetic';
+	        stage.fillText(sText, x+sx/2,y+sy*0.5+8);
+	        stage.strokeRect(x,y,sx,sy);
+        }
     };
 
     this.checkClicked = function(mouse) {

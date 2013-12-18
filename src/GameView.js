@@ -15,7 +15,7 @@ function GameView(gameModel,sprites,sound) {
 	this.createCanvas = function() {
 		canvasArea = new CanvasArea(sprites);
 		var blocksize=Math.floor(canvasArea.getSize().y/100);
-		buttonUi=new ButtonsUi(gameModel,canvasArea.getStage(),blocksize*5);
+		buttonUi=new ButtonsUi(gameModel,canvasArea,blocksize*5);
 		titleUi= new TitleUi(gameModel,canvasArea,sprites,buttonUi);
 		presentsUi = new PresentsUi(gameModel,canvasArea,sprites,buttonUi,blocksize);// Blocksize normalized to 100%=Height
 	};
@@ -113,6 +113,15 @@ function GameView(gameModel,sprites,sound) {
 			if(newScreen){
 				canvasArea.clearRectFront();
 				titleUi.drawTitle();
+				buttonUi.drawAll();
+			}
+			newScreen=false;
+			return;
+		}
+		if(screen==c.SCREEN.LEVELS){
+			if(newScreen){
+				canvasArea.clearRectFront();
+				titleUi.drawLevels();
 				buttonUi.drawAll();
 			}
 			newScreen=false;

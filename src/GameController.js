@@ -3,6 +3,7 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 	this.initialize = function() {
 		// Add callbacks and register for model changes
 		gameModel.registerEvent('startTitle',this.startTitle);
+		gameModel.registerEvent('startLevels',this.startLevels);
 		gameModel.registerEvent('startPresents',this.startPresents);
 		gameModel.registerEvent('startInstructions',this.startInstructions);
 		gameModel.registerEvent('endScreen',this.endScreen);
@@ -19,15 +20,15 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 		gameModel.getButtons().addButton({
 				text:'Start',
 				id: c.BUTTONS.START,
-				x:12,
-				y:10,
+				x:15,
+				y:12,
 				sx:10,
 				sy:2,
 		});
 		gameModel.getButtons().addButton({
 				text:'Instructions',
 				id :c.BUTTONS.INSTRUCIONS,
-				x:12,
+				x:15,
 				y:15,
 				sx:10,
 				sy:2,
@@ -41,17 +42,45 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 		buttons.reset();
 		buttons.addButton({
 			text:'Back',
+			icon:'back',
 			id: c.BUTTONS.MENU,
 			x:32,
-			y:18,
+			y:16,
 			sx:4,
-			sy:2,
+			sy:4,
 		});
-	}
+	};
+	this.startLevels = function(){
+		gameView.clearAll();
+		var buttons=gameModel.getButtons();
+		buttons.reset();
+		buttons.addButton({
+			text:'Back',
+			icon:'back',
+			id: c.BUTTONS.MENU,
+			x:32,
+			y:16,
+			sx:4,
+			sy:4,
+		});
+		for (var x = 0; x < 6; x++) {
+			for (var y = 0; y < 4; y++) {
+				buttons.addButton({
+					text:y*6+x+1,
+					id: y*6+x+101,
+					x:x*4+5,
+					y:y*4+2,
+					sx:3,
+					sy:3,
+				});
+			}
+			
+		}
+	};
 	
 	this.startPresents = function(){
 		sound.stopSound("song1");
-		gameModel.setLevel(1); // TODO: Start Level
+//		gameModel.setLevel(101); // TODO: Start Level
 		setupLevelUi();
 		loadLevel();
 	};
@@ -82,15 +111,17 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 		buttons.reset();
 		buttons.addButton({
 			text:'Menu',
+			icon:'back',
 			id: c.BUTTONS.MENU,
 			x:0,
 			y:0,
-			sx:4,
-			sy:2,
+			sx:3,
+			sy:3,
 			selected:false,
 		});
 		buttons.addButton({
 			text:'Check',
+			icon:'check',
 			id: c.BUTTONS.CHECK,
 			x:30,
 			y:16,

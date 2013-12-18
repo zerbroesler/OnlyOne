@@ -44,6 +44,7 @@ var c={
         GAME:2,
         GAME_OVER:3,
 		INSTRUCTIONS:4,
+		LEVELS:5,
     },
     
     TITLE_BACKGROUND_COLOR : "#F7EE59",

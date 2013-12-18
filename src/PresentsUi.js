@@ -48,7 +48,7 @@ function PresentsUi(gameModel,canvas,sprites,buttonUi,blocksize){
 		stage.font = 'bold '+ Math.floor(blocksize*5) +'px sans-serif ';
 		stage.textBaseline = 'top';
 		stage.textAlign = 'start';
-		stage.fillText('level'+gameModel.getLevelNumber(),60*blocksize,92*blocksize);
+		stage.fillText('Level '+gameModel.getLevelNumber(),20*blocksize,4*blocksize);
 		
 	};
 	this.drawPresents = function(){

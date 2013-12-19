@@ -20,9 +20,27 @@ function PresentsUi(gameModel,canvas,sprites,buttonUi,blocksize){
 			
 		}
 		buttonUi.drawAll();
+
+		if(gameModel.getSuccess()){
+			var stars=gameModel.getStarsGained();
+			canvas.drawRectAlpha(50,25,120,30);
+			if(stars[0]){
+				canvas.drawImage('star',50,25,10,10);
+				canvas.drawText('Completed Level',70,25);
+			}
+			if(stars[1]){
+				canvas.drawImage('star',50,35,10,10);
+				canvas.drawText('Completed Level on first attempt',70,35);
+			}
+			if(stars[2]){
+				canvas.drawImage('star',50,45,10,10);
+				canvas.drawText('Completed Level within 15 seconds',70,45);
+			}
+		}
+
 		
 		// Draw some hints in first level
-		if(gameModel.getLevelNumber()==1){
+		if(gameModel.getLevelNumber()==1 && !gameModel.getSuccess()){
 			var stage=canvas.getStage();
 			stage.beginPath();
 			stage.strokeStyle='black';
@@ -48,7 +66,7 @@ function PresentsUi(gameModel,canvas,sprites,buttonUi,blocksize){
 		stage.font = 'bold '+ Math.floor(blocksize*5) +'px sans-serif ';
 		stage.textBaseline = 'top';
 		stage.textAlign = 'start';
-		stage.fillText('level'+gameModel.getLevelNumber(),60*blocksize,92*blocksize);
+//		stage.fillText('level'+gameModel.getLevelNumber(),60*blocksize,92*blocksize);
 		
 	};
 	this.drawPresents = function(){

@@ -53,6 +53,7 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 	this.startLevels = function(){
 		gameView.clearAll();
 		var buttons=gameModel.getButtons();
+		var stars=gameModel.getStars();
 		buttons.reset();
 		buttons.addButton({
 			text:'Back',
@@ -63,13 +64,20 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 			sx:4,
 			sy:4,
 		});
+		var locked;
 		for (var x = 0; x < 6; x++) {
 			for (var y = 0; y < 4; y++) {
+				var number=y*6+x;
+				locked=(stars[number]==0);
+				if(number==0){
+					locked=false;
+				};
 				buttons.addButton({
-					text:y*6+x+1,
-					id: y*6+x+101,
+					locked:locked,
+					text:number+1,
+					id: number+101,
 					x:x*4+5,
-					y:y*4+2,
+					y:y*4.5+1,
 					sx:3,
 					sy:3,
 				});
@@ -136,8 +144,7 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 	function loadLevel(){
 		gameModel.loadLevel();
 		var level = gameModel.getLevel();
-		gameModel.clearAssigned();
-		// just one level now
+		gameModel.startLevel();
 		var persons = level.getPersons();
 		var presents = level.getPresents();
 		
@@ -217,7 +224,7 @@ function GameController(gameModel, gameView,sound,sprites,game) {
 		gameView.clearAll();
 	}
 	
-	function correctAnswer(){
+	function correctAnswer(stars){
 		sound.playSound("success");
 		gameModel.getButtons().addButton({
 			text:'Next Level',

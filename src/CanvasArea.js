@@ -68,10 +68,28 @@ function CanvasArea(sprites) {
 	    frontStage.drawImage(image.image, x, y,xs,ys);
 	};
 	this.clearRectFront = function(x, y,xs,ys){
-		x=x*blocksize | 0;
-		y=y*blocksize | 0;
-		xs=xs*blocksize | sizeX;
-		ys=ys*blocksize| sizeY;
+		x=x*blocksize || 0;
+		y=y*blocksize || 0;
+		xs=xs*blocksize || sizeX;
+		ys=ys*blocksize || sizeY;
 	    frontStage.clearRect(x, y,xs,ys);
 	};
+	this.drawRectAlpha = function(x, y,xs,ys){
+		stage.globalAlpha=0.6;
+		stage.fillStyle='lightGrey';
+		x=x*blocksize || 0;
+		y=y*blocksize || 0;
+		xs=xs*blocksize || sizeX;
+		ys=ys*blocksize || sizeY;
+	    stage.fillRect(x, y,xs,ys);
+		stage.globalAlpha=1;
+	};
+	this.drawText = function(text,x,y){
+		stage.fillStyle='black';
+		stage.font = 'bold '+ Math.floor(blocksize*5) +'px sans-serif ';
+		stage.textBaseline = 'top';
+		stage.textAlign = 'start';
+		stage.fillText(text,x*blocksize,y*blocksize);
+	}
+	
 };

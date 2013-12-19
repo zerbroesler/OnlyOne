@@ -41,6 +41,10 @@ function ButtonsUi(gameModel,canvas,blocksize) {
         	return;
 //            stage.fillStyle = 'fuchsia';
         }
+		if(button.locked){
+			stage.fillStyle = 'darkgrey';
+		}
+
         if(button.icon){
             stage.fillStyle = c.BUTTON.SELECTED_BACKGROUND_COLOR;
 	        stage.fillRect(x,y,sx,sy);
@@ -83,7 +87,7 @@ function ButtonsUi(gameModel,canvas,blocksize) {
     	var buttons = gameModel.getButtons().getButtons();
     	// Check which button was clicked
         for (var i = 0; i < buttons.length; i++) {
-            if (checkButtonClicked(buttons[i], mouse)) {
+            if (buttons[i].locked==false && checkButtonClicked(buttons[i], mouse)) {
                 return buttons[i];
             };
         };

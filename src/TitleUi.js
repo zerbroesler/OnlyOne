@@ -15,12 +15,24 @@ function TitleUi(gameModel,canvas,sprites,buttonUi){
 		stage=canvas.getStage();
 		canvas.clearScreen();
 		//canvas.drawImage('title', 0, 0,180,100); 
-		var blocksize=canvas.getBlocksize()*5;
-        stage.fillStyle='lightgrey';
-        stage.font = 'bold '+ Math.floor(blocksize*0.8) +'px sans-serif ';
-        stage.textBaseline = 'top';
-        stage.textAlign = 'start';
-		stage.fillText('Levls',26*blocksize,19*blocksize);
+		var blocksize=canvas.getBlocksize();
+        // stage.fillStyle='lightgrey';
+        // stage.font = 'bold '+ Math.floor(blocksize*0.8) +'px sans-serif ';
+        // stage.textBaseline = 'top';
+        // stage.textAlign = 'start';
+		// stage.fillText('Levls',26*blocksize,19*blocksize);
+		var stars = gameModel.getStars();
+		for (var x = 0; x < 6; x++) {
+			for (var y = 0; y < 4; y++) {
+				for(var starNo=0;starNo<3;starNo++){
+					if(stars[x+y*6+1]>starNo){
+						canvas.drawImage('star',blocksize*(x*4+5+starNo),blocksize*(y*4.5+4),blocksize,blocksize);
+					}else{
+						canvas.drawImage('starEmpty',blocksize*(x*4+5+starNo),blocksize*(y*4.5+4),blocksize,blocksize);
+					}
+				}
+			}
+		}
 	};
 	
 	this.drawInstructions=function(){

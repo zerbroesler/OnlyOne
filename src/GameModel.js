@@ -10,6 +10,11 @@ function GameModel() {
 	var level=undefined;
 	var levelNumber=undefined;
 	var assigned=undefined;
+	var levelProgress=undefined;
+	var levelTimer=undefined;
+	var wrongTry=undefined;
+	var success=undefined;
+	var starsGained;
 
 	var events={
 			startTitle : new Event(),
@@ -38,11 +43,20 @@ function GameModel() {
 	this.getScore = function(){
 		return score;
 	};
+	this.getSuccess = function(){
+		return success;
+	};
+	this.getStarsGained = function(){
+		return starsGained;
+	}
 	this.getButtons = function(){
 		return buttons;
 	};
 	this.getPresents = function(){
 		return presents;
+	};
+	this.getStars = function(){
+		return levelProgress;
 	};
 	this.registerEvent = function(name,listener){
 		events[name].attach(listener);
@@ -51,6 +65,13 @@ function GameModel() {
 	this.startGame = function() {
 	
 		$this=this;
+// Reset scores		
+// delete localStorage.OnePresentLevelProgress;
+		levelProgress=localStorage.OnePresentLevelProgress;
+		if(!levelProgress){
+		//                  123456789012345678901234
+			levelProgress='00000000000000000000000000';
+		}
 		if(screen==c.SCREEN.TITLE){
 			// Title Screen only, don't start the game
 			return;
@@ -147,6 +168,13 @@ function GameModel() {
 		events.nextLevel.notify();
 	}
 	
+	this.startLevel = function(){
+		this.clearAssigned();
+		levelTime=new Date().getTime();
+		wrongTry=false;
+		success=false;
+	};
+	
 	this.clearAssigned = function(){
 		var persons =level.getPersons();
 		assigned=[];
@@ -203,8 +231,29 @@ function GameModel() {
 		events.checked.notify();
 		// Everything correct?
 		if(correct==persons.length){
-			events.correctAnswer.notify();
+			// Calculate the stars
+			var levelStars=1;
+			starsGained=[];
+			starsGained[0]=true;
+			starsGained[1]=false;
+			starsGained[2]=false;
+			if(new Date().getTime()-levelTime<15000){
+				// For solving in less than 15 seconds
+				levelStars++;
+				starsGained[2]=true;
+			}
+			if(!wrongTry){
+				// For solving in first attempt
+				levelStars++;
+				starsGained[1]=true;
+			}
+			// Store to local storage
+			levelProgress=levelProgress.substr(0, levelNumber) + levelStars + levelProgress.substr(levelNumber+1);
+			localStorage.OnePresentLevelProgress=levelProgress;
+			success=true;
+			events.correctAnswer.notify(levelStars);
 		}else{
+			wrongTry=true;
 			events.wrongAnswer.notify();
 		}
 	}

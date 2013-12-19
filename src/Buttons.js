@@ -20,6 +20,7 @@ function Buttons(gameModel){
         spec.group = iSpec.group;
         spec.invisible = iSpec.invisible || false;
         spec.icon = iSpec.icon;
+        spec.locked = iSpec.locked || false;
         buttons.push(spec);
         gameModel.registerEvent('buttonSelection',selectButton);
     };

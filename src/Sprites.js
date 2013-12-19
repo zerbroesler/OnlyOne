@@ -24,6 +24,12 @@ function Sprites() {
 		back : {
 			path : 'back'
 		},		
+		star : {
+			path : 'star'
+		},		
+		starEmpty : {
+			path : 'starEmpty'
+		},		
 		// Persons
 		person1 : {
 			path : 'person1'
